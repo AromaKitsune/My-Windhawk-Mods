@@ -1,5 +1,5 @@
-# My-Windhawk-Mods
-A collection of my Windhawk mods for tweaking Microsoft Windows' behaviours
+# My Windhawk Mods
+A collection of my Windhawk mods for tweaking Microsoft Windows' behaviours and UI.
 
 
 ## Confirm Closing Multiple Tabs in File Explorer

@@ -11,9 +11,11 @@
 
 // ==WindhawkModReadme==
 /*
-# Confirm Closing File Explorer with Multiple Tabs
+# Confirm Closing Multiple Tabs in File Explorer
 This mod adds a confirmation dialog that spawns when you attempt to close a File Explorer window
 with multiple tabs open, preventing accidental closure of all tabs.
+
+![Preview](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/confirm-closing-multiple-explorer-tabs.png)
 */
 // ==/WindhawkModReadme==
 

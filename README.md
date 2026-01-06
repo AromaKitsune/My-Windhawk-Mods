@@ -11,6 +11,9 @@ with multiple tabs open, preventing accidental closure of all tabs.
 
 ![Preview](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/confirm-closing-multiple-explorer-tabs.png)
 
+### Configuration
+**Default button**: Choose whether "Close Tabs" or "Cancel" is the default button in the confirmation dialog.
+
 
 ## How to install these Mods
 

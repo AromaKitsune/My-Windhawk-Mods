@@ -11,7 +11,6 @@
 // ==WindhawkModReadme==
 /*
 # Notepad++ UI Tweaks
-
 This mod applies UI tweaks to Notepad++ to improve usability.
 
 ## Remove Border from Scintilla
@@ -248,3 +247,4 @@ void Wh_ModUninit() {
     // Clean-up: Remove subclass from all Notepad++ windows to prevent dangling pointers (aka crash)
     EnumWindows(EnumWindowsRemoveCallback, 0);
 }
+

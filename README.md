@@ -23,8 +23,8 @@ This mod applies UI tweaks to Notepad++ to improve usability.
 ### Remove Border from Scintilla
 Removes the border from the main text editing area (Scintilla control).
 
-**Why?**: When the border is visible, a 1px gap exists between the vertical scroll bar and the edge of the screen in a maximised window.
-This prevents you from simply flicking your mouse cursor to the screen edge to grab the scroll bar.
+**Why?**: When the border is visible, a 1px gap exists between the vertical scroll bar and the right edge of the screen in a maximised window.
+This prevents you from simply flicking your mouse cursor to the right screen edge to grab the scroll bar.
 Removing the border eliminates this gap, making the scroll bar easier to grab.
 
 ### Remove InfoTip from Document List

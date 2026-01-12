@@ -23,7 +23,7 @@ This mod applies UI tweaks to Notepad++ to improve usability.
 ### Remove Border from Scintilla
 Removes the border from the main text editing area (Scintilla control).
 
-**Why?**: When the border is visible, a 1px gap exists between the vertical scroll bar and the edge of the screen in a maximized window.
+**Why?**: When the border is visible, a 1px gap exists between the vertical scroll bar and the edge of the screen in a maximised window.
 This prevents you from simply flicking your mouse cursor to the screen edge to grab the scroll bar.
 Removing the border eliminates this gap, making the scroll bar easier to grab.
 
@@ -44,7 +44,7 @@ Removing the InfoTip solves this obstruction.
 ## How to install these Mods
 First, install [Windhawk](https://windhawk.net/).
 
-### via Windhawk marketplace
+### via Windhawk marketplace (recommended)
 1. Launch Windhawk.
 2. Click the "Explore" button.
 3. Search one of my mods by typing a mod name shown on this GitHub repo.
@@ -52,6 +52,7 @@ First, install [Windhawk](https://windhawk.net/).
 5. Click "Install", and the mod is installed.
 
 ### Manual installation
+Only install if the mods are not on the Windhawk marketplace.
 1. Launch Windhawk.
 2. Click "Create a New Mod" and clear everything in the text editor.
 3. Copy the C++ code from this GitHub repo.

@@ -52,7 +52,7 @@ First, install [Windhawk](https://windhawk.net/).
 5. Click "Install", and the mod is installed.
 
 ### Manual installation
-Only install if the mods are not on the Windhawk marketplace.
+Install mods locally only if those mods are not on the Windhawk marketplace.
 1. Launch Windhawk.
 2. Click "Create a New Mod" and clear everything in the text editor.
 3. Copy the C++ code from this GitHub repo.

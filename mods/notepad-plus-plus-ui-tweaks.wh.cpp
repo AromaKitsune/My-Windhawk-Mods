@@ -27,7 +27,7 @@ Removes the tooltip (InfoTip) that appears when hovering over files in the "Docu
 
 Additionally, on Windows 11, this prevents the mouse hover effect from triggering on the obscured item, making the list feel unresponsive to cursor movement.
 Curiously, this issue also affects several items below it (e.g., items 3, 4, 5), even though the tooltip is only obscuring item 2.
-This is a system-wide bug (or "feature"?) that affects `SysListView32` controls (not just in Notepad++) and does not occur in Windows 10 or earlier.
+This is a system-wide bug that affects `SysListView32` controls (not just in Notepad++) and does not occur in Windows 10 or earlier.
 Removing the InfoTip solves this obstruction.
 */
 // ==/WindhawkModReadme==
@@ -247,4 +247,3 @@ void Wh_ModUninit() {
     // Clean-up: Remove subclass from all Notepad++ windows to prevent dangling pointers (aka crash)
     EnumWindows(EnumWindowsRemoveCallback, 0);
 }
-

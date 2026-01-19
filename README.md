@@ -57,4 +57,4 @@ Install mods locally only if those mods are not on the Windhawk marketplace.
 2. Click "Create a New Mod" and clear everything in the text editor.
 3. Copy the C++ code from this GitHub repo.
 4. Paste the C++ code into the text editor.
-5. Click "Compile Mod", and the mod is installed.
+5. Click "Compile Mod", then "Exit Editing Mode", and the mod is installed.

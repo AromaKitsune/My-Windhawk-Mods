@@ -44,7 +44,8 @@ Removing the InfoTip solves this obstruction.
 ## How to install these Mods
 First, install [Windhawk](https://windhawk.net/) and pick one method below to install mods:
 
-### via Windhawk marketplace (recommended)
+### From the Windhawk marketplace
+Recommended.
 1. Launch Windhawk.
 2. Click the "Explore" button.
 3. Search one of my mods by typing a mod name shown on this GitHub repo.

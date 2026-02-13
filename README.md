@@ -45,6 +45,11 @@ exceeds 90%.
 
 ---
 
+Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
+**aubymori**.
+
+---
+
 ## Notepad++ UI Tweaks
 This mod applies UI tweaks to Notepad++ to improve usability.
 

@@ -24,6 +24,11 @@ button in the confirmation dialog.
 This mod replaces the disk usage pie/donut chart in the drive properties dialog
 with a usage bar.
 
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
+| [C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/disk-usage-bar-in-drive-properties.wh.cpp)
+
+![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/disk-usage-bar-in-drive-properties.png)
+
 ## Features
 * Replaces the pie/donut chart with a blue usage bar, like in "This PC".
 * Switches the bar colour to red when the disk is almost full.
@@ -33,11 +38,6 @@ with a usage bar.
 * Windows 11
 * Windows 10
 * Windows 8.1
-
-[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
-| [C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/disk-usage-bar-in-drive-properties.wh.cpp)
-
-![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/disk-usage-bar-in-drive-properties.png)
 
 ### Configuration
 You can enable the option to switch the usage bar colour to red when disk usage

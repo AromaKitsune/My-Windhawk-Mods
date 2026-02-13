@@ -2,6 +2,14 @@
 My collection of Windhawk mods for tweaking behaviours and UI of Microsoft
 Windows and apps.
 
+## Table of contents
+* Mods
+  * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
+  * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
+  * [Notepad++ UI Tweaks](#notepad-ui-tweaks)
+* Info
+  * [How to install these Mods](#how-to-install-these-mods)
+
 ---
 
 ## Confirm Closing Multiple Tabs in File Explorer
@@ -53,6 +61,8 @@ Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 ## Notepad++ UI Tweaks
 This mod applies UI tweaks to Notepad++ to improve usability.
 
+[C++ source code](/mods/notepad-plus-plus-ui-tweaks.wh.cpp)
+
 ### Remove Border from Scintilla
 Removes the border from the main text editing area (Scintilla control).
 
@@ -69,8 +79,6 @@ Additionally, on Windows 11, this prevents the mouse hover effect from triggerin
 Curiously, this issue also affects several items below it (e.g., items 3, 4, 5), even though the tooltip is only obscuring item 2.
 This is a system-wide bug that affects `SysListView32` controls (not just in Notepad++) and does not occur in Windows 10 or earlier.
 Removing the InfoTip solves this obstruction.
-
-[C++ source code](/mods/notepad-plus-plus-ui-tweaks.wh.cpp)
 
 ---
 

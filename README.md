@@ -1,19 +1,47 @@
 # My Windhawk Mods
-My collection of Windhawk mods for tweaking behaviours and UI of Microsoft Windows and apps.
+My collection of Windhawk mods for tweaking behaviours and UI of Microsoft
+Windows and apps.
 
 ---
 
 ## Confirm Closing Multiple Tabs in File Explorer
-This mod adds a confirmation dialog that spawns when you attempt to close a File Explorer window
-with multiple tabs open, preventing accidental closure of all tabs.
+This mod adds a confirmation dialog that spawns when you attempt to close a File
+Explorer window with multiple tabs open, preventing accidental closure of all
+tabs.
 
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
 | [C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/confirm-closing-multiple-explorer-tabs.wh.cpp)
 
-![Preview](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/confirm-closing-multiple-explorer-tabs.png)
+![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/confirm-closing-multiple-explorer-tabs.png)
 
 ### Configuration
-**Default button**: Choose whether "Close Tabs" or "Cancel" is the default button in the confirmation dialog.
+**Default button**: Choose whether "Close Tabs" or "Cancel" is the default
+button in the confirmation dialog.
+
+---
+
+## Disk Usage Bar in Drive Properties
+This mod replaces the disk usage pie/donut chart in the drive properties dialog
+with a usage bar.
+
+## Features
+* Replaces the pie/donut chart with a blue usage bar, like in "This PC".
+* Switches the bar colour to red when the disk is almost full.
+* Displays the usage percentage text below the bar.
+
+## Supported Windows versions
+* Windows 11
+* Windows 10
+* Windows 8.1
+
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
+| [C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/disk-usage-bar-in-drive-properties.wh.cpp)
+
+![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/disk-usage-bar-in-drive-properties.png)
+
+### Configuration
+You can enable the option to switch the usage bar colour to red when disk usage
+exceeds 90%.
 
 ---
 

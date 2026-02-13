@@ -10,9 +10,9 @@ Explorer window with multiple tabs open, preventing accidental closure of all
 tabs.
 
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
-| [C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/confirm-closing-multiple-explorer-tabs.wh.cpp)
+| [C++ source code](/mods/confirm-closing-multiple-explorer-tabs.wh.cpp)
 
-![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/confirm-closing-multiple-explorer-tabs.png)
+![](/screenshots/confirm-closing-multiple-explorer-tabs.png)
 
 ### Configuration
 **Default button**: Choose whether "Close Tabs" or "Cancel" is the default
@@ -25,9 +25,9 @@ This mod replaces the disk usage pie/donut chart in the drive properties dialog
 with a usage bar.
 
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
-| [C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/disk-usage-bar-in-drive-properties.wh.cpp)
+| [C++ source code](/mods/disk-usage-bar-in-drive-properties.wh.cpp)
 
-![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/disk-usage-bar-in-drive-properties.png)
+![](/screenshots/disk-usage-bar-in-drive-properties.png)
 
 ## Features
 * Replaces the pie/donut chart with a blue usage bar, like in "This PC".
@@ -70,7 +70,7 @@ Curiously, this issue also affects several items below it (e.g., items 3, 4, 5),
 This is a system-wide bug that affects `SysListView32` controls (not just in Notepad++) and does not occur in Windows 10 or earlier.
 Removing the InfoTip solves this obstruction.
 
-[C++ source code](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/mods/notepad-plus-plus-ui-tweaks.wh.cpp)
+[C++ source code](/mods/notepad-plus-plus-ui-tweaks.wh.cpp)
 
 ---
 

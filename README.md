@@ -6,6 +6,7 @@ Windows and apps.
 * Mods
   * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
   * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
+  * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
   * [Notepad++ UI Tweaks](#notepad-ui-tweaks)
 * Info
   * [How to install these Mods](#how-to-install-these-mods)

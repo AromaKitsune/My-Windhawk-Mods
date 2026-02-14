@@ -69,7 +69,7 @@ This mod restores the AutoRun icon back where it belongs.
 
 | Before | After |
 | :----: | :---: |
-| ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/restore-autorun-icon-in-drive-properties_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/restore-autorun-icon-in-drive-properties_after.png) |
+| ![](/screenshots/restore-autorun-icon-in-drive-properties_before.png) | ![](/screenshots/restore-autorun-icon-in-drive-properties_after.png) |
 
 ### Compatibility with other mods
 Any other mods that hook the `DrawPie` function will conflict with this mod and

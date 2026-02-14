@@ -58,6 +58,39 @@ Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 
 ---
 
+## Restore AutoRun Icon in Drive Properties
+Since Windows 2000, the drive properties dialog never displays the AutoRun icon
+on the General tab, leaving a blank space.
+
+This mod restores the AutoRun icon back where it belongs.
+
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/restore-autorun-icon-in-drive-properties)
+| [C++ source code](/mods/restore-autorun-icon-in-drive-properties.wh.cpp)
+
+| Before | After |
+| :----: | :---: |
+| ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/restore-autorun-icon-in-drive-properties_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/restore-autorun-icon-in-drive-properties_after.png) |
+
+### Compatibility with other mods
+Any other mods that hook the `DrawPie` function will conflict with this mod and
+prevent it from functioning.
+
+#### Conflicting mods
+* [Disk Usage Bar in Drive Properties](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
+  by me
+* [Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)
+  by **aubymori**
+
+**Note:** The "Disk Usage Bar in Drive Properties" mod already has the AutoRun
+icon restoration code integrated, so you don't need to use both mods together.
+
+### Supported Windows versions
+* Windows 11
+* Windows 10
+* Windows 8.1
+
+---
+
 ## Notepad++ UI Tweaks
 This mod applies UI tweaks to Notepad++ to improve usability.
 

@@ -37,12 +37,12 @@ with a usage bar.
 
 ![](/screenshots/disk-usage-bar-in-drive-properties.png)
 
-## Features
+### Features
 * Replaces the pie/donut chart with a blue usage bar, like in "This PC".
 * Switches the bar colour to red when the disk is almost full.
 * Displays the usage percentage text below the bar.
 
-## Supported Windows versions
+### Supported Windows versions
 * Windows 11
 * Windows 10
 * Windows 8.1

@@ -43,14 +43,17 @@ with a usage bar.
 * Switches the bar colour to red when the disk is almost full.
 * Displays the usage percentage text below the bar.
 
+### Configuration
+This mod provides the following options:
+* **Show red bar on low space**: Switches the usage bar colour to red when disk
+  usage exceeds 90%.
+* **Show decimal percentage**: Displays the disk usage percentage text with one
+  decimal place (e.g., `64.1%`).
+
 ### Supported Windows versions
 * Windows 11
 * Windows 10
 * Windows 8.1
-
-### Configuration
-You can enable the option to switch the usage bar colour to red when disk usage
-exceeds 90%.
 
 ---
 

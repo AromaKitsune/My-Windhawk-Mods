@@ -49,6 +49,12 @@ This mod provides the following options:
   usage exceeds 90%.
 * **Show decimal percentage**: Displays the disk usage percentage text with one
   decimal place (e.g., `64.1%`).
+* **Hide storage management button**: Hides the "Details" (Windows 11) or "Disk
+  Clean-up" (Windows 8.1/10) button.
+  * It is recommended to hide this button for localised systems to prevent a UI
+    collision with a long "Space used" string for the disk usage percentage
+    text.
+  * The `Alt+D` keyboard shortcut remains functional.
 
 ### Supported Windows versions
 * Windows 11

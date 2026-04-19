@@ -41,7 +41,7 @@ with a usage bar.
 ### Features
 * Replaces the pie/donut chart with a blue usage bar, like in "This PC".
 * Switches the bar colour to red when the disk is almost full.
-* Displays the usage percentage text below the bar.
+* Displays the disk usage percentage text below the bar.
 
 ### Configuration
 This mod provides the following options:

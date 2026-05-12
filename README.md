@@ -5,10 +5,10 @@ Windows and apps.
 ## Table of contents
 * Mods
   * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
-  * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
-  * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
   * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
+  * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
   * [Notepad++ Tweaks](#notepad-tweaks)
+  * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
 * Info
   * [How to install these Mods](#how-to-install-these-mods)
 
@@ -27,6 +27,40 @@ tabs.
 ### Configuration
 **Default button**: Choose whether "Close Tabs" or "Cancel" is the default
 button in the confirmation dialog.
+
+---
+
+## Ctrl+Backspace Fix for Win32 Text Boxes
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/ctrl-backspace-fix-for-win32-text-boxes)
+| [C++ source code](/mods/ctrl-backspace-fix-for-win32-text-boxes.wh.cpp)
+
+Win32 text boxes often lack previous-word deletion functionality, resulting in
+the `Ctrl+Backspace` hotkey inserting the `Delete` control character instead of
+deleting the previous word.
+
+This mod resolves this behaviour by adding previous-word deletion functionality
+to those `Edit` controls.
+
+It also supports wrapped `Edit` controls used in .NET WinForms and Delphi VCL
+applications.
+
+| Before |
+| :----- |
+| ![](/screenshots/ctrl-backspace-fix-for-win32-text-boxes_before.gif) |
+
+| After |
+| :---- |
+| ![](/screenshots/ctrl-backspace-fix-for-win32-text-boxes_after.gif) |
+
+### Notes
+* In hotkey text boxes, pressing `Ctrl+Backspace` deletes the text instead of
+  assigning the hotkey.
+* In masked text boxes, pressing `Ctrl+Backspace` deletes the placeholder
+  characters, breaking the input mask and preventing further input into those
+  missing slots.
+* Custom-drawn text boxes, such as those in Qt applications, are unaffected
+  because they do not utilise standard Win32 `Edit` controls. Most custom-drawn
+  UI frameworks already handle their own previous-word deletion functionality.
 
 ---
 
@@ -69,6 +103,37 @@ Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 
 ---
 
+## Notepad++ Tweaks
+[C++ source code](/mods/notepad-plus-plus-tweaks.wh.cpp)
+
+This mod applies tweaks to Notepad++ to improve usability.
+
+### Remove Border from Scintilla
+Removes the border from the main text editing area (Scintilla control).
+
+**Why?**: When the border is visible, a 1px gap exists between the vertical
+scroll bar and the right edge of the screen in a maximised window. This prevents
+you from simply flicking your mouse cursor to the right screen edge to grab the
+scroll bar. Removing the border eliminates this gap, making the scroll bar
+easier to grab.
+
+### Remove InfoTip from Document List
+Removes the tooltip (InfoTip) that appears when hovering over files in the
+"Document List" panel.
+
+**Why?**: The default InfoTip can be intrusive; if you hover over file item 1,
+the tooltip often appears over file item 2, obscuring it.
+
+Additionally, on Windows 11, this prevents the mouse hover effect from
+triggering on the obscured item, making the list feel unresponsive to cursor
+movement. Curiously, this issue also affects several items below it (e.g., items
+3, 4, 5), even though the tooltip is only obscuring item 2. This is a
+system-wide bug that affects `SysListView32` controls (not just in Notepad++)
+and does not occur in Windows 10 or earlier. Removing the InfoTip solves this
+obstruction.
+
+---
+
 ## Restore AutoRun Icon in Drive Properties
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/restore-autorun-icon-in-drive-properties)
 | [C++ source code](/mods/restore-autorun-icon-in-drive-properties.wh.cpp)
@@ -99,71 +164,6 @@ icon restoration code integrated, so you don't need to use both mods together.
 * Windows 11
 * Windows 10
 * Windows 8.1
-
----
-
-## Ctrl+Backspace Fix for Win32 Text Boxes
-[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/ctrl-backspace-fix-for-win32-text-boxes)
-| [C++ source code](/mods/ctrl-backspace-fix-for-win32-text-boxes.wh.cpp)
-
-Win32 text boxes often lack previous-word deletion functionality, resulting in
-the `Ctrl+Backspace` hotkey inserting the `Delete` control character instead of
-deleting the previous word.
-
-This mod resolves this behaviour by adding previous-word deletion functionality
-to those `Edit` controls.
-
-It also supports wrapped `Edit` controls used in .NET WinForms and Delphi VCL
-applications.
-
-| Before |
-| :----- |
-| ![](/screenshots/ctrl-backspace-fix-for-win32-text-boxes_before.gif) |
-
-| After |
-| :---- |
-| ![](/screenshots/ctrl-backspace-fix-for-win32-text-boxes_after.gif) |
-
-### Notes
-* In hotkey text boxes, pressing `Ctrl+Backspace` deletes the text instead of
-  assigning the hotkey.
-* In masked text boxes, pressing `Ctrl+Backspace` deletes the placeholder
-  characters, breaking the input mask and preventing further input into those
-  missing slots.
-* Custom-drawn text boxes, such as those in Qt applications, are unaffected
-  because they do not utilise standard Win32 `Edit` controls. Most custom-drawn
-  UI frameworks already handle their own previous-word deletion functionality.
-
----
-
-## Notepad++ Tweaks
-[C++ source code](/mods/notepad-plus-plus-tweaks.wh.cpp)
-
-This mod applies tweaks to Notepad++ to improve usability.
-
-### Remove Border from Scintilla
-Removes the border from the main text editing area (Scintilla control).
-
-**Why?**: When the border is visible, a 1px gap exists between the vertical
-scroll bar and the right edge of the screen in a maximised window. This prevents
-you from simply flicking your mouse cursor to the right screen edge to grab the
-scroll bar. Removing the border eliminates this gap, making the scroll bar
-easier to grab.
-
-### Remove InfoTip from Document List
-Removes the tooltip (InfoTip) that appears when hovering over files in the
-"Document List" panel.
-
-**Why?**: The default InfoTip can be intrusive; if you hover over file item 1,
-the tooltip often appears over file item 2, obscuring it.
-
-Additionally, on Windows 11, this prevents the mouse hover effect from
-triggering on the obscured item, making the list feel unresponsive to cursor
-movement. Curiously, this issue also affects several items below it (e.g., items
-3, 4, 5), even though the tooltip is only obscuring item 2. This is a
-system-wide bug that affects `SysListView32` controls (not just in Notepad++)
-and does not occur in Windows 10 or earlier. Removing the InfoTip solves this
-obstruction.
 
 ---
 

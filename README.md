@@ -2,15 +2,16 @@
 My collection of Windhawk mods for tweaking behaviours and UI of Microsoft
 Windows and apps.
 
-## Table of contents
-* Mods
-  * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
-  * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
-  * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
-  * [Notepad++ Tweaks](#notepad-tweaks)
-  * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
-* Info
-  * [How to install these Mods](#how-to-install-these-mods)
+## List of Mods
+* [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
+* [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
+* [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
+* [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
+* [Notepad++ Tweaks](#notepad-tweaks)
+* [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
+
+## Info
+* [How to install Mods](#how-to-install-mods)
 
 ---
 
@@ -27,6 +28,32 @@ tabs.
 ### Configuration
 **Default button**: Choose whether "Close Tabs" or "Cancel" is the default
 button in the confirmation dialog.
+
+---
+
+## CrystalDiskInfo Smart Auto-Refresh
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/crystaldiskinfo-smart-auto-refresh)
+| [C++ source code](/mods/crystaldiskinfo-smart-auto-refresh.wh.cpp)
+
+CrystalDiskInfo includes an optional Auto-Refresh feature that updates disk
+information at specified intervals, which is useful for background monitoring
+while the application is minimised to the system tray. However, when the
+application's main window is visible, automatic refreshes can interfere with the
+analysis of current disk status, as shifting attribute values make tracking
+specific metrics more difficult.
+
+This mod temporarily pauses the Auto-Refresh function by blocking its disk
+polling cycle whenever the application's main window is visible, allowing for an
+uninterrupted analysis of current disk status.
+
+The Auto-Refresh function resumes once the application is minimised to the
+taskbar or system tray.
+
+**Note:** If CrystalDiskInfo is already running when the mod is loaded, pick one
+of the following options to activate it:
+* Restart the application completely.
+* Select an interval in **Function** → **Auto Refresh**, including the one
+  currently set.
 
 ---
 
@@ -167,8 +194,9 @@ icon restoration code integrated, so you don't need to use both mods together.
 
 ---
 
-## How to install these Mods
-First, install [Windhawk](https://windhawk.net/) and pick one method below to install mods:
+## How to install Mods
+First, install [Windhawk](https://windhawk.net/) and pick one method below to
+install mods:
 
 ### From the Windhawk marketplace
 Recommended.

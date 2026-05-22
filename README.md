@@ -7,6 +7,7 @@ Windows and apps.
 * [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
 * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
 * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
+* [Never Auto-Expand Explorer Tree Items](#never-auto-expand-explorer-tree-items)
 * [Notepad++ Tweaks](#notepad-tweaks)
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
 
@@ -127,6 +128,24 @@ This mod provides the following options:
 
 Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 **aubymori**.
+
+---
+
+## Never Auto-Expand Explorer Tree Items
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/never-auto-expand-explorer-tree-items)
+| [C++ source code](/mods/never-auto-expand-explorer-tree-items.wh.cpp)
+
+File Explorer automatically expands navigation pane items (such as "This PC")
+even if the "Expand to current folder" option is off, specifically when:
+* Opening any folder inside an external drive in a new tab or window.
+* Navigating to any drive after manually expanding and collapsing "This PC".
+
+This mod prevents this unwanted auto-expansion behaviour, keeping the navigation
+pane tidy.
+
+| Before | After |
+| :----: | :---: |
+| ![](/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](/screenshots/never-auto-expand-explorer-tree-items_after.png) |
 
 ---
 

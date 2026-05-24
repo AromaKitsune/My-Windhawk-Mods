@@ -215,14 +215,18 @@ Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 File Explorer automatically expands navigation pane items (such as "This PC")
 even if the "Expand to current folder" option is off, specifically when:
 * Opening any folder inside an external drive in a new tab or window.
-* Navigating to any drive after manually expanding and collapsing "This PC".
+* Navigating to any drive after manually expanding and collapsing the "This PC"
+  item.
 
 This mod prevents this unwanted auto-expansion behaviour, keeping the navigation
 pane tidy.
 
+**Note:** The top-level "Desktop" item can still auto-expand when the
+"Show all folders" option is on, keeping the navigation pane populated.
+
 | Before | After |
 | :----: | :---: |
-| ![](/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](/screenshots/never-auto-expand-explorer-tree-items_after.png) |
+| ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/never-auto-expand-explorer-tree-items_after.png) |
 
 ---
 

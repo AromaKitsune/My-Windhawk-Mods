@@ -6,7 +6,6 @@
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         vmware.exe
-// @architecture    x86
 // @compilerOptions -lcomctl32 -luxtheme -lgdi32
 // ==/WindhawkMod==
 
@@ -20,13 +19,13 @@ This mod modernizes and customizes the "Library" tree view sidebar in VMware Wor
 ## Features & Configuration
 All visual tweaks dynamically scale with your monitor's DPI settings. You can mix and match the following options in the settings tab:
 
-* **Item Height**: Adjust the vertical spacing of the virtual machines in the list (Default: 18px).
-* **Themed TreeView**: Applies the modern Windows File Explorer visual style (fading selection boxes, updated expand/collapse arrows). Automatically and instantly syncs with VMware's Dark Mode / System Theme settings!
-* **Full-Row Selection**: Expands the highlight selection box across the entire width of the sidebar.
-* **Tree Indentation**: Controls the horizontal spacing/indentation of child VMs and folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern Flat Border**: Replaces the dated 3D sunken border (`WS_EX_CLIENTEDGE`) with a clean, flat 1px line (`WS_BORDER`).
-* **Remove Expando Buttons**: Hides the expand/collapse arrows completely for a minimalist look. (You can still expand folders by double-clicking them).
-* **Disable ToolTips**: Hides the native popup tooltips that appear when hovering over truncated virtual machine names.
+* **Item Height:** Adjust the vertical spacing of the virtual machines in the list (Default: 18px).
+* **Themed TreeView:** Applies the modern Windows File Explorer visual style (fading selection boxes, updated expand/collapse arrows). Automatically and instantly syncs with VMware's Dark Mode / System Theme settings!
+* **Full-Row Selection:** Expands the highlight selection box across the entire width of the sidebar.
+* **Tree Indentation:** Controls the horizontal spacing/indentation of child VMs and folders (Default: 18px). Lower this to push VMs closer to the left edge.
+* **Modern Flat Border:** Replaces the dated 3D sunken border (`WS_EX_CLIENTEDGE`) with a clean, flat 1px line (`WS_BORDER`).
+* **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a minimalist look. (You can still expand folders by double-clicking them).
+* **Disable ToolTips:** Hides the native popup tooltips that appear when hovering over truncated virtual machine names.
 */
 // ==/WindhawkModReadme==
 
@@ -63,7 +62,7 @@ All visual tweaks dynamically scale with your monitor's DPI settings. You can mi
 #include <string>
 #include <fstream>
 
-#define IDT_THEME_SYNC 1
+constexpr int IDT_THEME_SYNC = 1;
 
 struct {
     int itemHeight;
@@ -75,23 +74,29 @@ struct {
     bool disableToolTips;
 } g_settings;
 
-// Helper function to dynamically read the theme state with heavy caching to prevent disk-thrashing
+// Helper function to dynamically read the theme state with heavy caching
+// to prevent disk-thrashing
 bool IsVMwareDarkMode()
 {
-    static FILETIME s_ftLastWriteTime = {0};
+    static FILETIME s_ftLastWriteTime{};
     static int s_iThemePref = -1; // -1 = system, 0 = light, 1 = dark
 
     WCHAR szAppData[MAX_PATH];
     if (GetEnvironmentVariableW(L"APPDATA", szAppData, MAX_PATH))
     {
-        std::wstring strPrefPath = std::wstring(szAppData) + L"\\VMware\\preferences.ini";
+        std::wstring strPrefPath = std::wstring(szAppData) +
+            L"\\VMware\\preferences.ini";
         WIN32_FILE_ATTRIBUTE_DATA fileAttributes;
 
-        // Grab the file's basic attributes. This doesn't actually read the file, so it's lightning fast.
-        if (GetFileAttributesExW(strPrefPath.c_str(), GetFileExInfoStandard, &fileAttributes))
+        // Grab the file's basic attributes. This doesn't actually read the
+        // file, so it's lightning fast.
+        if (GetFileAttributesExW(strPrefPath.c_str(), GetFileExInfoStandard,
+                &fileAttributes))
         {
-            // If the file was modified since our last check, open it and read the preference
-            if (CompareFileTime(&fileAttributes.ftLastWriteTime, &s_ftLastWriteTime) != 0)
+            // If the file was modified since our last check, open it and read
+            // the preference
+            if (CompareFileTime(&fileAttributes.ftLastWriteTime,
+                    &s_ftLastWriteTime) != 0)
             {
                 s_ftLastWriteTime = fileAttributes.ftLastWriteTime;
                 s_iThemePref = -1; // Default to system if string is missing
@@ -104,9 +109,20 @@ bool IsVMwareDarkMode()
                     {
                         if (strLine.find("pref.ui.theme") != std::string::npos)
                         {
-                            if (strLine.find("\"dark\"") != std::string::npos) s_iThemePref = 1;
-                            else if (strLine.find("\"light\"") != std::string::npos) s_iThemePref = 0;
-                            else if (strLine.find("\"system\"") != std::string::npos) s_iThemePref = -1;
+                            if (strLine.find("\"dark\"") != std::string::npos)
+                            {
+                                s_iThemePref = 1;
+                            }
+                            else if (strLine.find("\"light\"") !=
+                                std::string::npos)
+                            {
+                                s_iThemePref = 0;
+                            }
+                            else if (strLine.find("\"system\"") !=
+                                std::string::npos)
+                            {
+                                s_iThemePref = -1;
+                            }
                             break;
                         }
                     }
@@ -123,9 +139,12 @@ bool IsVMwareDarkMode()
     HKEY hThemeKey;
     DWORD dwUseLightTheme = 1; // Default to light
     DWORD cbDataSize = sizeof(dwUseLightTheme);
-    if (RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", 0, KEY_READ, &hThemeKey) == ERROR_SUCCESS)
+    if (RegOpenKeyExW(HKEY_CURRENT_USER,
+            L"Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+            0, KEY_READ, &hThemeKey) == ERROR_SUCCESS)
     {
-        RegQueryValueExW(hThemeKey, L"AppsUseLightTheme", NULL, NULL, (LPBYTE)&dwUseLightTheme, &cbDataSize);
+        RegQueryValueExW(hThemeKey, L"AppsUseLightTheme", nullptr, nullptr,
+            reinterpret_cast<LPBYTE>(&dwUseLightTheme), &cbDataSize);
         RegCloseKey(hThemeKey);
     }
 
@@ -139,18 +158,23 @@ void UpdateTreeViewTheme(HWND hTreeViewWnd, bool isForced = false)
 
     bool isDarkMode = IsVMwareDarkMode();
 
-    // We use a custom window property to track the last applied theme for this specific TreeView
+    // We use a custom window property to track the last applied theme for this
+    // specific TreeView
     // 0 = Uninitialized, 1 = Light Mode applied, 2 = Dark Mode applied
     int iCurrentState = isDarkMode ? 2 : 1;
-    int iLastState = (int)(intptr_t)GetPropW(hTreeViewWnd, L"TreeThemeState");
+    int iLastState = static_cast<int>(reinterpret_cast<intptr_t>(
+        GetPropW(hTreeViewWnd, L"TreeThemeState")));
 
     if (isForced || (iCurrentState != iLastState))
     {
-        SetPropW(hTreeViewWnd, L"TreeThemeState", (HANDLE)(intptr_t)iCurrentState);
-        SetWindowTheme(hTreeViewWnd, isDarkMode ? L"DarkMode_Explorer" : L"Explorer", NULL);
+        SetPropW(hTreeViewWnd, L"TreeThemeState",
+            reinterpret_cast<HANDLE>(static_cast<intptr_t>(iCurrentState)));
+        SetWindowTheme(hTreeViewWnd,
+            isDarkMode ? L"DarkMode_Explorer" : L"Explorer", nullptr);
 
         // Force the window to instantly redraw with the new colors
-        RedrawWindow(hTreeViewWnd, NULL, NULL, RDW_INVALIDATE | RDW_FRAME);
+        RedrawWindow(hTreeViewWnd, nullptr, nullptr,
+            RDW_INVALIDATE | RDW_FRAME);
     }
 }
 
@@ -164,8 +188,8 @@ int ScaleForWindow(HWND hTreeViewWnd, int nBaseValue)
     if (hUser32)
     {
         using GetDpiForWindow_t = UINT(WINAPI*)(HWND);
-        auto pfnGetDpiForWindow = (GetDpiForWindow_t)GetProcAddress(hUser32, "GetDpiForWindow");
-
+        auto pfnGetDpiForWindow = reinterpret_cast<GetDpiForWindow_t>(
+            GetProcAddress(hUser32, "GetDpiForWindow"));
         if (pfnGetDpiForWindow)
         {
             uDpi = pfnGetDpiForWindow(hTreeViewWnd);
@@ -187,7 +211,8 @@ int ScaleForWindow(HWND hTreeViewWnd, int nBaseValue)
 }
 
 // Subclass procedure to enforce the styles persistently
-LRESULT CALLBACK TreeViewSubclassProc(HWND hTreeViewWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, DWORD_PTR dwRefData)
+LRESULT CALLBACK TreeViewSubclassProc(HWND hTreeViewWnd, UINT uMsg,
+    WPARAM wParam, LPARAM lParam, DWORD_PTR dwRefData)
 {
     switch (uMsg)
     {
@@ -195,11 +220,14 @@ LRESULT CALLBACK TreeViewSubclassProc(HWND hTreeViewWnd, UINT uMsg, WPARAM wPara
         case WM_DPICHANGED:
         {
             // Let the control process the layout change first
-            LRESULT lResult = DefSubclassProc(hTreeViewWnd, uMsg, wParam, lParam);
+            LRESULT lResult = DefSubclassProc(hTreeViewWnd, uMsg,
+                wParam, lParam);
 
             // Re-apply our custom height and indentation with DPI scaling
-            int cyTreeItem = ScaleForWindow(hTreeViewWnd, g_settings.itemHeight);
-            int cxTreeIndent = ScaleForWindow(hTreeViewWnd, g_settings.treeIndent);
+            int cyTreeItem = ScaleForWindow(hTreeViewWnd,
+                g_settings.itemHeight);
+            int cxTreeIndent = ScaleForWindow(hTreeViewWnd,
+                g_settings.treeIndent);
 
             SendMessage(hTreeViewWnd, TVM_SETITEMHEIGHT, cyTreeItem, 0);
             SendMessage(hTreeViewWnd, TVM_SETINDENT, cxTreeIndent, 0);
@@ -209,8 +237,10 @@ LRESULT CALLBACK TreeViewSubclassProc(HWND hTreeViewWnd, UINT uMsg, WPARAM wPara
 
         case WM_THEMECHANGED:
         {
-            LRESULT lResult = DefSubclassProc(hTreeViewWnd, uMsg, wParam, lParam);
-            UpdateTreeViewTheme(hTreeViewWnd, true); // Force reapply if OS forces a theme flush
+            LRESULT lResult = DefSubclassProc(hTreeViewWnd, uMsg,
+                wParam, lParam);
+            // Force reapply if OS forces a theme flush
+            UpdateTreeViewTheme(hTreeViewWnd, true);
             return lResult;
         }
 
@@ -233,31 +263,37 @@ LRESULT CALLBACK TreeViewSubclassProc(HWND hTreeViewWnd, UINT uMsg, WPARAM wPara
 
         case TVM_SETITEMHEIGHT:
         {
-            // If VMware actively tries to set a different item height, override it with our scaled one
-            int cyTreeItem = ScaleForWindow(hTreeViewWnd, g_settings.itemHeight);
-            if (wParam != (WPARAM)cyTreeItem)
+            // If VMware actively tries to set a different item height, override
+            // it with our scaled one
+            int cyTreeItem = ScaleForWindow(hTreeViewWnd,
+                g_settings.itemHeight);
+            if (wParam != static_cast<WPARAM>(cyTreeItem))
             {
-                wParam = cyTreeItem;
+                wParam = static_cast<WPARAM>(cyTreeItem);
             }
             break;
         }
 
         case TVM_SETINDENT:
         {
-            // Lock the indentation to our scaled value if VMware tries to change it
-            int cxTreeIndent = ScaleForWindow(hTreeViewWnd, g_settings.treeIndent);
-            if (wParam != (WPARAM)cxTreeIndent)
+            // Lock the indentation to our scaled value if VMware tries to
+            // change it
+            int cxTreeIndent = ScaleForWindow(hTreeViewWnd,
+                g_settings.treeIndent);
+            if (wParam != static_cast<WPARAM>(cxTreeIndent))
             {
-                wParam = cxTreeIndent;
+                wParam = static_cast<WPARAM>(cxTreeIndent);
             }
             break;
         }
 
         case WM_NCDESTROY:
-            // Safely clean up timers and subclasses when the VMware window is destroyed
+            // Safely clean up timers and subclasses when the VMware window is
+            // destroyed
             KillTimer(hTreeViewWnd, IDT_THEME_SYNC);
             RemovePropW(hTreeViewWnd, L"TreeThemeState");
-            WindhawkUtils::RemoveWindowSubclassFromAnyThread(hTreeViewWnd, TreeViewSubclassProc);
+            WindhawkUtils::RemoveWindowSubclassFromAnyThread(hTreeViewWnd,
+                TreeViewSubclassProc);
             break;
     }
     return DefSubclassProc(hTreeViewWnd, uMsg, wParam, lParam);
@@ -326,24 +362,27 @@ void InjectTreeViewStyles(HWND hTreeViewWnd)
     SetWindowLongPtrW(hTreeViewWnd, GWL_EXSTYLE, lExStyle);
 
     // Force the window to recalculate its non-client borders and redraw
-    SetWindowPos(hTreeViewWnd, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+    SetWindowPos(hTreeViewWnd, nullptr, 0, 0, 0, 0,
+        SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
 
     // Apply theme and start monitoring system changes
     if (g_settings.themed)
     {
         UpdateTreeViewTheme(hTreeViewWnd, true);
-        TreeView_SetExtendedStyle(hTreeViewWnd, TVS_EX_DOUBLEBUFFER, TVS_EX_DOUBLEBUFFER);
+        TreeView_SetExtendedStyle(hTreeViewWnd, TVS_EX_DOUBLEBUFFER,
+            TVS_EX_DOUBLEBUFFER);
         // Spin up the background 500ms file-check timer
-        SetTimer(hTreeViewWnd, IDT_THEME_SYNC, 500, NULL);
+        SetTimer(hTreeViewWnd, IDT_THEME_SYNC, 500, nullptr);
     }
     else
     {
         KillTimer(hTreeViewWnd, IDT_THEME_SYNC);
         RemovePropW(hTreeViewWnd, L"TreeThemeState");
-        SetWindowTheme(hTreeViewWnd, NULL, NULL);
+        SetWindowTheme(hTreeViewWnd, nullptr, nullptr);
     }
 
-    WindhawkUtils::SetWindowSubclassFromAnyThread(hTreeViewWnd, TreeViewSubclassProc, 0);
+    WindhawkUtils::SetWindowSubclassFromAnyThread(hTreeViewWnd,
+        TreeViewSubclassProc, 0);
 }
 
 // Hook CreateWindowExW to catch new VMware windows
@@ -379,18 +418,12 @@ HWND WINAPI CreateWindowExW_Hook(
         lpParam
     );
 
-    if (hWnd)
+    WCHAR szClassName[256];
+    if (hWnd && GetClassNameW(hWnd, szClassName, ARRAYSIZE(szClassName)) &&
+        wcscmp(szClassName, L"ATL:SysTreeView32") == 0)
     {
-        WCHAR szClassName[256];
-        if (GetClassNameW(hWnd, szClassName, ARRAYSIZE(szClassName)))
-        {
-            if (wcscmp(szClassName, L"ATL:SysTreeView32") == 0)
-            {
-                InjectTreeViewStyles(hWnd);
-            }
-        }
+        InjectTreeViewStyles(hWnd);
     }
-
     return hWnd;
 }
 
@@ -398,12 +431,10 @@ HWND WINAPI CreateWindowExW_Hook(
 BOOL CALLBACK EnumChildWindows_AttachCallback(HWND hTreeViewWnd, LPARAM lParam)
 {
     WCHAR szClassName[256];
-    if (GetClassNameW(hTreeViewWnd, szClassName, ARRAYSIZE(szClassName)))
+    if (GetClassNameW(hTreeViewWnd, szClassName, ARRAYSIZE(szClassName)) &&
+        wcscmp(szClassName, L"ATL:SysTreeView32") == 0)
     {
-        if (wcscmp(szClassName, L"ATL:SysTreeView32") == 0)
-        {
-            InjectTreeViewStyles(hTreeViewWnd);
-        }
+        InjectTreeViewStyles(hTreeViewWnd);
     }
     return TRUE;
 }
@@ -412,42 +443,44 @@ BOOL CALLBACK EnumChildWindows_AttachCallback(HWND hTreeViewWnd, LPARAM lParam)
 BOOL CALLBACK EnumChildWindows_DetachCallback(HWND hTreeViewWnd, LPARAM lParam)
 {
     WCHAR szClassName[256];
-    if (GetClassNameW(hTreeViewWnd, szClassName, ARRAYSIZE(szClassName)))
+    if (GetClassNameW(hTreeViewWnd, szClassName, ARRAYSIZE(szClassName)) &&
+        wcscmp(szClassName, L"ATL:SysTreeView32") == 0)
     {
-        if (wcscmp(szClassName, L"ATL:SysTreeView32") == 0)
-        {
-            // 1. Remove our subclass FIRST so it doesn't fight the style restorations
-            WindhawkUtils::RemoveWindowSubclassFromAnyThread(hTreeViewWnd, TreeViewSubclassProc);
+        // 1. Remove our subclass FIRST so it doesn't fight the style
+        // restorations
+        WindhawkUtils::RemoveWindowSubclassFromAnyThread(hTreeViewWnd,
+            TreeViewSubclassProc);
 
-            // 2. Stop our background theme-sync timer and clean up properties
-            KillTimer(hTreeViewWnd, IDT_THEME_SYNC);
-            RemovePropW(hTreeViewWnd, L"TreeThemeState");
+        // 2. Stop our background theme-sync timer and clean up properties
+        KillTimer(hTreeViewWnd, IDT_THEME_SYNC);
+        RemovePropW(hTreeViewWnd, L"TreeThemeState");
 
-            // 3. Strip the Explorer theme so it returns to normal
-            SetWindowTheme(hTreeViewWnd, NULL, NULL);
+        // 3. Strip the Explorer theme so it returns to normal
+        SetWindowTheme(hTreeViewWnd, nullptr, nullptr);
 
-            // 4. Remove extended styles (like double buffering)
-            TreeView_SetExtendedStyle(hTreeViewWnd, 0, TVS_EX_DOUBLEBUFFER);
+        // 4. Remove extended styles (like double buffering)
+        TreeView_SetExtendedStyle(hTreeViewWnd, 0, TVS_EX_DOUBLEBUFFER);
 
-            // 5. Best-effort style restoration
-            LONG_PTR lStyle = GetWindowLongPtrW(hTreeViewWnd, GWL_STYLE);
-            LONG_PTR lExStyle = GetWindowLongPtrW(hTreeViewWnd, GWL_EXSTYLE);
+        // 5. Best-effort style restoration
+        LONG_PTR lStyle = GetWindowLongPtrW(hTreeViewWnd, GWL_STYLE);
+        LONG_PTR lExStyle = GetWindowLongPtrW(hTreeViewWnd, GWL_EXSTYLE);
 
-            lStyle &= ~TVS_FULLROWSELECT;
-            lStyle |= TVS_HASBUTTONS;
-            lStyle &= ~TVS_NOTOOLTIPS; // Restore default tooltip behavior
-            // Intentionally not restoring TVS_HASLINES here
+        lStyle &= ~TVS_FULLROWSELECT;
+        lStyle |= TVS_HASBUTTONS;
+        lStyle &= ~TVS_NOTOOLTIPS; // Restore default tooltip behavior
+        // Intentionally not restoring TVS_HASLINES here
 
-            lStyle &= ~WS_BORDER;
-            lExStyle |= WS_EX_CLIENTEDGE;
+        lStyle &= ~WS_BORDER;
+        lExStyle |= WS_EX_CLIENTEDGE;
 
-            SetWindowLongPtrW(hTreeViewWnd, GWL_STYLE, lStyle);
-            SetWindowLongPtrW(hTreeViewWnd, GWL_EXSTYLE, lExStyle);
+        SetWindowLongPtrW(hTreeViewWnd, GWL_STYLE, lStyle);
+        SetWindowLongPtrW(hTreeViewWnd, GWL_EXSTYLE, lExStyle);
 
-            // 6. Recalculate borders and force a complete visual refresh
-            SetWindowPos(hTreeViewWnd, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-            RedrawWindow(hTreeViewWnd, NULL, NULL, RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_UPDATENOW);
-        }
+        // 6. Recalculate borders and force a complete visual refresh
+        SetWindowPos(hTreeViewWnd, nullptr, 0, 0, 0, 0,
+            SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+        RedrawWindow(hTreeViewWnd, nullptr, nullptr,
+            RDW_INVALIDATE | RDW_ERASE | RDW_FRAME | RDW_UPDATENOW);
     }
     return TRUE;
 }
@@ -492,7 +525,11 @@ BOOL Wh_ModInit()
 {
     LoadSettings();
 
-    Wh_SetFunctionHook((void*)CreateWindowExW, (void*)CreateWindowExW_Hook, (void**)&CreateWindowExW_Original);
+    WindhawkUtils::SetFunctionHook(
+        CreateWindowExW,
+        CreateWindowExW_Hook,
+        &CreateWindowExW_Original
+    );
 
     EnumWindows(EnumWindows_AttachCallback, 0);
 

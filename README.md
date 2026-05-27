@@ -1,6 +1,6 @@
 # My Windhawk Mods
-My collection of Windhawk mods for tweaking behaviours and UI of Microsoft
-Windows and apps.
+My collection of Windhawk mods for tweaking the behaviours and UI of Microsoft
+Windows and various apps.
 
 <h2>List of Mods</h2>
 <table>

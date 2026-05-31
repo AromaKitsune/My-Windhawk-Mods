@@ -34,12 +34,12 @@ time.
   $description: Opacity level when idle (0 = invisible, 255 = fully visible)
 - idleDelay: 2000
   $name: Idle Timeout (ms)
-  $description: Time in milliseconds before icons become transparent (0 = disable timer, hide instantly)
-- opaqueCondition: off
+  $description: Time in milliseconds before icons become transparent (0 = disable timer, transparent instantly on mouse leave)
+- opaqueCondition: anyInteraction
   $name: Opaque Condition
   $description: When should the icons become fully opaque?
   $options:
-    - off: Off (Any desktop interaction)
+    - anyInteraction: Any Interaction
     - hovered: Hovered (Mouse over an icon)
     - selected: Selected (An icon is selected)
 */

@@ -2,7 +2,7 @@
 // @id              transparent-idle-desktop-icons
 // @name            Transparent Idle Desktop Icons
 // @description     Make desktop icons transparent when idle and restore opacity on hover
-// @version         0.1-beta5
+// @version         0.1-beta6
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         explorer.exe
@@ -143,6 +143,23 @@ LRESULT CALLBACK FolderViewSubclassProc(HWND hWnd, UINT uMsg,
 {
     switch (uMsg)
     {
+        case WM_MOUSEMOVE:
+        {
+            TRACKMOUSEEVENT tme{};
+            tme.cbSize = sizeof(TRACKMOUSEEVENT);
+            tme.dwFlags = TME_LEAVE;
+            tme.hwndTrack = hWnd;
+            TrackMouseEvent(&tme);
+            break;
+        }
+        case WM_MOUSELEAVE:
+        {
+            KillTimer(hWnd, IDT_IDLE_TIMER);
+            g_bIsIdle = true;
+            SetLayeredWindowAttributes(hWnd, 0, settings.idleOpacity,
+                LWA_ALPHA);
+            break;
+        }
         case WM_TIMER:
         {
             if (wParam == IDT_IDLE_TIMER)

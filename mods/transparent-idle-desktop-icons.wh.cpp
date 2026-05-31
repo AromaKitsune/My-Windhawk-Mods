@@ -2,7 +2,7 @@
 // @id              transparent-idle-desktop-icons
 // @name            Transparent Idle Desktop Icons
 // @description     Make desktop icons transparent when idle and restore opacity on hover
-// @version         0.1-beta6
+// @version         0.1-beta10
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         explorer.exe
@@ -16,6 +16,14 @@ Makes desktop icons semi-transparent when they are not actively being interacted
 with. When the mouse hovers over the desktop area, the icons will instantly
 restore to full opacity. After the cursor leaves the desktop or remains idle
 for the configured duration, the icons fade back to the custom opacity level.
+
+## ⚠ Important note ⚠
+This mod has a known incompatibility with the
+"[Desktop Live Overlay](https://windhawk.net/mods/desktop-live-overlay)" mod.
+Running both mods simultaneously will cause the wallpaper to turn completely
+black when interacting with the desktop, or artificially darken when idle. For
+the best experience, it is highly recommended to use only one of these mods at a
+time.
 */
 // ==/WindhawkModReadme==
 
@@ -26,7 +34,14 @@ for the configured duration, the icons fade back to the custom opacity level.
   $description: Opacity level when idle (0 = invisible, 255 = fully visible)
 - idleDelay: 2000
   $name: Idle Timeout (ms)
-  $description: Time in milliseconds before icons become transparent
+  $description: Time in milliseconds before icons become transparent (0 = disable timer, hide instantly)
+- opaqueCondition: off
+  $name: Opaque Condition
+  $description: When should the icons become fully opaque?
+  $options:
+    - off: Off (Any desktop interaction)
+    - hovered: Hovered (Mouse over an icon)
+    - selected: Selected (An icon is selected)
 */
 // ==/WindhawkModSettings==
 
@@ -39,9 +54,11 @@ struct
 {
     int idleOpacity;
     int idleDelay;
+    int opaqueCondition;
 } settings;
 
 constexpr UINT_PTR IDT_IDLE_TIMER = 1001;
+constexpr UINT_PTR IDT_STATE_TIMER = 1003;
 constexpr UINT WM_APP_APPLY_SUBCLASS = WM_APP + 1;
 constexpr UINT WM_APP_REMOVE_SUBCLASS = WM_APP + 2;
 
@@ -109,28 +126,96 @@ bool IsFolderViewWnd(HWND hWnd)
     return true;
 }
 
+void EvaluateOpaqueCondition()
+{
+    if (!g_hFolderView || settings.opaqueCondition == 0)
+    {
+        return;
+    }
+
+    bool wantsOpaque = false;
+    if (settings.opaqueCondition == 1)
+    {
+        POINT pt;
+        GetCursorPos(&pt);
+        ScreenToClient(g_hFolderView, &pt);
+        LVHITTESTINFO ht{};
+        ht.pt = pt;
+        ListView_HitTest(g_hFolderView, &ht);
+        wantsOpaque = (ht.flags & LVHT_ONITEM) != 0;
+    }
+    else if (settings.opaqueCondition == 2)
+    {
+        wantsOpaque = (ListView_GetSelectedCount(g_hFolderView) > 0);
+    }
+
+    if (wantsOpaque)
+    {
+        ULONGLONG now = GetTickCount64();
+        if (g_bIsIdle)
+        {
+            SetLayeredWindowAttributes(g_hFolderView, 0, 255, LWA_ALPHA);
+            g_bIsIdle = false;
+            if (settings.idleDelay > 0)
+            {
+                SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
+                    nullptr);
+            }
+            g_lastWakeTime = now;
+        }
+        else if (settings.idleDelay > 0 && now - g_lastWakeTime > 200)
+        {
+            SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
+                nullptr);
+            g_lastWakeTime = now;
+        }
+    }
+    else
+    {
+        if (!g_bIsIdle && settings.idleDelay == 0)
+        {
+            g_bIsIdle = true;
+            KillTimer(g_hFolderView, IDT_IDLE_TIMER);
+            SetLayeredWindowAttributes(g_hFolderView, 0, settings.idleOpacity,
+                LWA_ALPHA);
+        }
+    }
+}
+
 LRESULT CALLBACK MouseHookProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
     if (nCode == HC_ACTION && g_hFolderView)
     {
         if (wParam == WM_MOUSEMOVE || wParam == WM_LBUTTONDOWN ||
-            wParam == WM_RBUTTONDOWN)
+            wParam == WM_RBUTTONDOWN || wParam == WM_LBUTTONUP ||
+            wParam == WM_RBUTTONUP)
         {
-            ULONGLONG now = GetTickCount64();
-            if (g_bIsIdle)
+            if (settings.opaqueCondition != 0)
             {
-                SetLayeredWindowAttributes(g_hFolderView, 0, 255, LWA_ALPHA);
-                g_bIsIdle = false;
-                SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
-                    nullptr);
-                g_lastWakeTime = now;
+                EvaluateOpaqueCondition();
             }
-            else if (now - g_lastWakeTime > 200)
+            else
             {
-                // Throttle timer resets to avoid spamming the OS
-                SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
-                    nullptr);
-                g_lastWakeTime = now;
+                ULONGLONG now = GetTickCount64();
+                if (g_bIsIdle)
+                {
+                    SetLayeredWindowAttributes(g_hFolderView, 0, 255,
+                        LWA_ALPHA);
+                    g_bIsIdle = false;
+
+                    if (settings.idleDelay > 0)
+                    {
+                        SetTimer(g_hFolderView, IDT_IDLE_TIMER,
+                            settings.idleDelay, nullptr);
+                    }
+                    g_lastWakeTime = now;
+                }
+                else if (settings.idleDelay > 0 && now - g_lastWakeTime > 200)
+                {
+                    SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
+                        nullptr);
+                    g_lastWakeTime = now;
+                }
             }
         }
     }
@@ -145,19 +230,25 @@ LRESULT CALLBACK FolderViewSubclassProc(HWND hWnd, UINT uMsg,
     {
         case WM_MOUSEMOVE:
         {
-            TRACKMOUSEEVENT tme{};
-            tme.cbSize = sizeof(TRACKMOUSEEVENT);
-            tme.dwFlags = TME_LEAVE;
-            tme.hwndTrack = hWnd;
-            TrackMouseEvent(&tme);
+            if (settings.opaqueCondition == 0)
+            {
+                TRACKMOUSEEVENT tme{};
+                tme.cbSize = sizeof(TRACKMOUSEEVENT);
+                tme.dwFlags = TME_LEAVE;
+                tme.hwndTrack = hWnd;
+                TrackMouseEvent(&tme);
+            }
             break;
         }
         case WM_MOUSELEAVE:
         {
-            KillTimer(hWnd, IDT_IDLE_TIMER);
-            g_bIsIdle = true;
-            SetLayeredWindowAttributes(hWnd, 0, settings.idleOpacity,
-                LWA_ALPHA);
+            if (settings.opaqueCondition == 0)
+            {
+                KillTimer(hWnd, IDT_IDLE_TIMER);
+                g_bIsIdle = true;
+                SetLayeredWindowAttributes(hWnd, 0, settings.idleOpacity,
+                    LWA_ALPHA);
+            }
             break;
         }
         case WM_TIMER:
@@ -168,6 +259,13 @@ LRESULT CALLBACK FolderViewSubclassProc(HWND hWnd, UINT uMsg,
                 g_bIsIdle = true;
                 SetLayeredWindowAttributes(hWnd, 0, settings.idleOpacity,
                     LWA_ALPHA);
+            }
+            else if (wParam == IDT_STATE_TIMER)
+            {
+                if (settings.opaqueCondition != 0)
+                {
+                    EvaluateOpaqueCondition();
+                }
             }
             break;
         }
@@ -211,10 +309,26 @@ void ApplySubclass(HWND hWnd)
             dwThreadId);
     }
 
-    g_bIsIdle = false;
-    g_lastWakeTime = GetTickCount64();
-    SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA);
-    SetTimer(hWnd, IDT_IDLE_TIMER, settings.idleDelay, nullptr);
+    if (settings.opaqueCondition != 0)
+    {
+        SetTimer(hWnd, IDT_STATE_TIMER, 100, nullptr);
+        EvaluateOpaqueCondition();
+    }
+    else
+    {
+        if (settings.idleDelay > 0)
+        {
+            g_bIsIdle = false;
+            g_lastWakeTime = GetTickCount64();
+            SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA);
+            SetTimer(hWnd, IDT_IDLE_TIMER, settings.idleDelay, nullptr);
+        }
+        else
+        {
+            g_bIsIdle = true;
+            SetLayeredWindowAttributes(hWnd, 0, settings.idleOpacity, LWA_ALPHA);
+        }
+    }
 }
 
 void RemoveSubclass(HWND hWnd)
@@ -231,6 +345,8 @@ void RemoveSubclass(HWND hWnd)
     }
 
     KillTimer(hWnd, IDT_IDLE_TIMER);
+    KillTimer(hWnd, IDT_STATE_TIMER);
+
     RemoveWindowSubclass(hWnd, FolderViewSubclassProc, 1);
     SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA);
 
@@ -318,6 +434,21 @@ void LoadSettings()
 {
     settings.idleOpacity = std::clamp(Wh_GetIntSetting(L"idleOpacity"), 0, 255);
     settings.idleDelay = std::max(Wh_GetIntSetting(L"idleDelay"), 0);
+
+    PCWSTR opaqueConditionStr = Wh_GetStringSetting(L"opaqueCondition");
+    if (_wcsicmp(opaqueConditionStr, L"hovered") == 0)
+    {
+        settings.opaqueCondition = 1;
+    }
+    else if (_wcsicmp(opaqueConditionStr, L"selected") == 0)
+    {
+        settings.opaqueCondition = 2;
+    }
+    else
+    {
+        settings.opaqueCondition = 0;
+    }
+    Wh_FreeStringSetting(opaqueConditionStr);
 }
 
 BOOL Wh_ModInit()
@@ -346,10 +477,31 @@ BOOL Wh_ModSettingsChanged(BOOL* bReload)
 
     if (g_hFolderView)
     {
-        g_bIsIdle = false;
-        g_lastWakeTime = GetTickCount64();
-        SetLayeredWindowAttributes(g_hFolderView, 0, 255, LWA_ALPHA);
-        SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay, nullptr);
+        if (settings.opaqueCondition != 0)
+        {
+            SetTimer(g_hFolderView, IDT_STATE_TIMER, 100, nullptr);
+            EvaluateOpaqueCondition();
+        }
+        else
+        {
+            KillTimer(g_hFolderView, IDT_STATE_TIMER);
+
+            if (settings.idleDelay > 0)
+            {
+                g_bIsIdle = false;
+                g_lastWakeTime = GetTickCount64();
+                SetLayeredWindowAttributes(g_hFolderView, 0, 255, LWA_ALPHA);
+                SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
+                    nullptr);
+            }
+            else
+            {
+                KillTimer(g_hFolderView, IDT_IDLE_TIMER);
+                g_bIsIdle = true;
+                SetLayeredWindowAttributes(g_hFolderView, 0,
+                    settings.idleOpacity, LWA_ALPHA);
+            }
+        }
     }
 
     *bReload = FALSE;

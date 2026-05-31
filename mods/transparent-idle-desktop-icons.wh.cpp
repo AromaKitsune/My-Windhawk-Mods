@@ -17,6 +17,8 @@ with. When the mouse hovers over the desktop area, the icons will instantly
 restore to full opacity. After the cursor leaves the desktop or remains idle
 for the configured duration, the icons fade back to the custom opacity level.
 
+![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/transparent-idle-desktop-icons.png)
+
 ## ⚠ Important note ⚠
 This mod has a known incompatibility with the
 "[Desktop Live Overlay](https://windhawk.net/mods/desktop-live-overlay)" mod.

@@ -314,6 +314,14 @@ for the configured duration, the icons fade back to the custom opacity level.
 
 ![](/screenshots/transparent-idle-desktop-icons.png)
 
+## ⚠ Important note ⚠
+This mod has a known incompatibility with the
+"[Desktop Live Overlay](https://windhawk.net/mods/desktop-live-overlay)" mod.
+Running both mods simultaneously will cause the wallpaper to turn completely
+black when interacting with the desktop, or artificially darken when idle. For
+the best experience, it is highly recommended to use only one of these mods at a
+time.
+
 ---
 
 ## How to install Mods

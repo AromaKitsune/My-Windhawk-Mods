@@ -85,6 +85,16 @@ Windows and various apps.
         Restores the missing AutoRun icon in drive properties
       </td>
     </tr>
+    <tr>
+      <td>
+        <a href="#transparent-idle-desktop-icons">
+          Transparent Idle Desktop Icons
+        </a>
+      </td>
+      <td>
+        Make desktop icons transparent when idle and restore opacity on hover
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -291,6 +301,18 @@ icon restoration code integrated, so you don't need to use both mods together.
 * Windows 11
 * Windows 10
 * Windows 8.1
+
+---
+
+## Transparent Idle Desktop Icons
+[C++ source code](/mods/transparent-idle-desktop-icons.wh.cpp)
+
+Makes desktop icons semi-transparent when they are not actively being interacted
+with. When the mouse hovers over the desktop area, the icons will instantly
+restore to full opacity. After the cursor leaves the desktop or remains idle
+for the configured duration, the icons fade back to the custom opacity level.
+
+![](/screenshots/transparent-idle-desktop-icons.png)
 
 ---
 

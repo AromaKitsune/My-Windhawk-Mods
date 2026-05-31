@@ -21,7 +21,7 @@ for the configured duration, the icons fade back to the custom opacity level.
 
 // ==WindhawkModSettings==
 /*
-- idleOpacity: 0
+- idleOpacity: 128
   $name: Idle Opacity
   $description: Opacity level when idle (0 = invisible, 255 = fully visible)
 - idleDelay: 2000

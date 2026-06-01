@@ -236,7 +236,7 @@ pane tidy.
 
 | Before | After |
 | :----: | :---: |
-| ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/never-auto-expand-explorer-tree-items_after.png) |
+| ![](/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](/screenshots/never-auto-expand-explorer-tree-items_after.png) |
 
 ---
 

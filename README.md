@@ -240,9 +240,9 @@ pane tidy.
 
 ### Configuration
 * **Allow top-level items to auto-expand:** Allows top-level items to
-  auto-expand while keeping their nested items collapsed.
-  * Enable this option if you want the "This PC" item to auto-expand while
-    keeping its drive items collapsed.
+  auto-expand while keeping their nested items collapsed. Enable this option if
+  you want the "This PC" item to auto-expand while keeping its drive items
+  collapsed.
 
 ---
 

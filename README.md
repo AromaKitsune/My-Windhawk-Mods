@@ -2,101 +2,15 @@
 My collection of Windhawk mods for tweaking the behaviours and UI of Microsoft
 Windows and various apps.
 
-<h2>List of Mods</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Mod</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <a href="#confirm-closing-multiple-tabs-in-file-explorer">
-          Confirm Closing Multiple Tabs in File Explorer
-        </a>
-      </td>
-      <td>
-        Shows a confirmation dialog when closing a File Explorer window with
-        multiple tabs open
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#crystaldiskinfo-smart-auto-refresh">
-          CrystalDiskInfo Smart Auto-Refresh
-        </a>
-      </td>
-      <td>
-        Temporarily pauses the Auto-Refresh function whenever the application's
-        main window is visible
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#ctrlbackspace-fix-for-win32-text-boxes">
-          Ctrl+Backspace Fix for Win32 Text Boxes
-        </a>
-      </td>
-      <td>
-        Makes Ctrl+Backspace delete the previous word in Win32 text boxes
-        instead of inserting a control character
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#disk-usage-bar-in-drive-properties">
-          Disk Usage Bar in Drive Properties
-        </a>
-      </td>
-      <td>
-        Replaces the pie/donut chart in drive properties with a usage bar
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#never-auto-expand-explorer-tree-items">
-          Never Auto-Expand Explorer Tree Items
-        </a>
-      </td>
-      <td>
-        Stops the unwanted auto-expansion of navigation pane items even if the
-        "Expand to current folder" option is off
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#notepad-tweaks">
-          Notepad++ Tweaks
-        </a>
-      </td>
-      <td>
-        Applies tweaks to Notepad++ to improve usability
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#restore-autorun-icon-in-drive-properties">
-          Restore AutoRun Icon in Drive Properties
-        </a>
-      </td>
-      <td>
-        Restores the missing AutoRun icon in drive properties
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="#transparent-idle-desktop-icons">
-          Transparent Idle Desktop Icons
-        </a>
-      </td>
-      <td>
-        Make desktop icons transparent when idle and restore opacity on hover
-      </td>
-    </tr>
-  </tbody>
-</table>
+## List of Mods
+* [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
+* [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
+* [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
+* [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
+* [Never Auto-Expand Explorer Tree Items](#never-auto-expand-explorer-tree-items)
+* [Notepad++ Tweaks](#notepad-tweaks)
+* [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
+* [Transparent Idle Desktop Icons](#transparent-idle-desktop-icons)
 
 ## Info
 * [How to install Mods](#how-to-install-mods)
@@ -231,12 +145,18 @@ even if the "Expand to current folder" option is off, specifically when:
 This mod prevents this unwanted auto-expansion behaviour, keeping the navigation
 pane tidy.
 
-**Note:** The top-level "Desktop" item can still auto-expand when the
+**Note:** The "Desktop" root item can still auto-expand when the
 "Show all folders" option is on, keeping the navigation pane populated.
 
 | Before | After |
 | :----: | :---: |
 | ![](/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](/screenshots/never-auto-expand-explorer-tree-items_after.png) |
+
+### Configuration
+* **Allow top-level items to auto-expand:** Allows top-level items to
+  auto-expand while keeping their nested items collapsed.
+  * Enable this option if you want the "This PC" item to auto-expand while
+    keeping its drive items collapsed.
 
 ---
 

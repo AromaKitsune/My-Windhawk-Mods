@@ -47,10 +47,9 @@ time.
 */
 // ==/WindhawkModSettings==
 
+#include <windhawk_utils.h>
 #include <algorithm>
 #include <commctrl.h>
-#include <windhawk_api.h>
-#include <windhawk_utils.h>
 
 struct
 {

@@ -2,7 +2,7 @@
 // @id              transparent-idle-desktop-icons
 // @name            Transparent Idle Desktop Icons
 // @description     Make desktop icons transparent when idle and restore opacity on hover
-// @version         0.1-beta10
+// @version         0.1-beta11
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         explorer.exe
@@ -67,6 +67,7 @@ constexpr UINT WM_APP_REMOVE_SUBCLASS = WM_APP + 2;
 HWND g_hFolderView = nullptr;
 HHOOK g_hMouseHook = nullptr;
 bool g_bIsIdle = false;
+bool g_bConditionMet = false;
 ULONGLONG g_lastWakeTime = 0;
 
 HWND GetFolderViewWnd()
@@ -153,33 +154,32 @@ void EvaluateOpaqueCondition()
 
     if (wantsOpaque)
     {
-        ULONGLONG now = GetTickCount64();
-        if (g_bIsIdle)
+        // Stay completely awake and kill the timer so it never expires while hovering
+        if (g_bIsIdle || !g_bConditionMet)
         {
             SetLayeredWindowAttributes(g_hFolderView, 0, 255, LWA_ALPHA);
             g_bIsIdle = false;
+            g_bConditionMet = true;
+            KillTimer(g_hFolderView, IDT_IDLE_TIMER);
+        }
+    }
+    else
+    {
+        // Start the countdown strictly when the condition STOPS being met
+        if (g_bConditionMet)
+        {
+            g_bConditionMet = false;
             if (settings.idleDelay > 0)
             {
                 SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
                     nullptr);
             }
-            g_lastWakeTime = now;
-        }
-        else if (settings.idleDelay > 0 && now - g_lastWakeTime > 200)
-        {
-            SetTimer(g_hFolderView, IDT_IDLE_TIMER, settings.idleDelay,
-                nullptr);
-            g_lastWakeTime = now;
-        }
-    }
-    else
-    {
-        if (!g_bIsIdle && settings.idleDelay == 0)
-        {
-            g_bIsIdle = true;
-            KillTimer(g_hFolderView, IDT_IDLE_TIMER);
-            SetLayeredWindowAttributes(g_hFolderView, 0, settings.idleOpacity,
-                LWA_ALPHA);
+            else
+            {
+                g_bIsIdle = true;
+                SetLayeredWindowAttributes(g_hFolderView, 0, settings.idleOpacity,
+                    LWA_ALPHA);
+            }
         }
     }
 }
@@ -313,6 +313,10 @@ void ApplySubclass(HWND hWnd)
 
     if (settings.opaqueCondition != 0)
     {
+        // Force the evaluation to start the countdown if the condition is not already met
+        g_bConditionMet = true;
+        g_bIsIdle = false;
+        SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA);
         SetTimer(hWnd, IDT_STATE_TIMER, 100, nullptr);
         EvaluateOpaqueCondition();
     }
@@ -481,6 +485,9 @@ BOOL Wh_ModSettingsChanged(BOOL* bReload)
     {
         if (settings.opaqueCondition != 0)
         {
+            g_bConditionMet = true; // Force the evaluation to start the countdown if the condition is not already met
+            g_bIsIdle = false;
+            SetLayeredWindowAttributes(g_hFolderView, 0, 255, LWA_ALPHA);
             SetTimer(g_hFolderView, IDT_STATE_TIMER, 100, nullptr);
             EvaluateOpaqueCondition();
         }

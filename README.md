@@ -231,12 +231,18 @@ even if the "Expand to current folder" option is off, specifically when:
 This mod prevents this unwanted auto-expansion behaviour, keeping the navigation
 pane tidy.
 
-**Note:** The top-level "Desktop" item can still auto-expand when the
+**Note:** The "Desktop" root item can still auto-expand when the
 "Show all folders" option is on, keeping the navigation pane populated.
 
 | Before | After |
 | :----: | :---: |
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/never-auto-expand-explorer-tree-items_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/never-auto-expand-explorer-tree-items_after.png) |
+
+### Configuration
+* **Allow top-level items to auto-expand:** Allows top-level items to
+  auto-expand while keeping their nested items collapsed.
+  * Enable this option if you want the "This PC" item to auto-expand while
+    keeping its drive items collapsed.
 
 ---
 
@@ -314,7 +320,7 @@ for the configured duration, the icons fade back to the custom opacity level.
 
 ![](/screenshots/transparent-idle-desktop-icons.png)
 
-## ⚠ Important note ⚠
+## ⚠️ Important note ⚠️
 This mod has a known incompatibility with the
 "[Desktop Live Overlay](https://windhawk.net/mods/desktop-live-overlay)" mod.
 Running both mods simultaneously will cause the wallpaper to turn completely

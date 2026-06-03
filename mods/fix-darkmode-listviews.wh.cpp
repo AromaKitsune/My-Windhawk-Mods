@@ -21,7 +21,7 @@ as "Rectify11 dark theme".
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
 
 [Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
-**Reabstraction**.
+**Reabstraction**. This forked mod adds compatibility with dialogs.
 */
 // ==/WindhawkModReadme==
 

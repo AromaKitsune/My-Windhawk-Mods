@@ -7,6 +7,7 @@ Windows and various apps.
 * [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
 * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
 * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
+* [Fix Darkmode ListViews](#fix-darkmode-listviews)
 * [Never Auto-Expand Explorer Tree Items](#never-auto-expand-explorer-tree-items)
 * [Notepad++ Tweaks](#notepad-tweaks)
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
@@ -129,6 +130,21 @@ This mod provides the following options:
 
 Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 **aubymori**.
+
+---
+
+## Fix Darkmode ListViews
+[C++ source code](/mods/fix-darkmode-listviews.wh.cpp)
+
+Fixes hardcoded text colour in ListViews when using a system-wide dark theme
+such as "Rectify11 dark theme".
+
+| Before | After |
+| :----: | :---: |
+| ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
+
+[Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
+**Reabstraction**.
 
 ---
 

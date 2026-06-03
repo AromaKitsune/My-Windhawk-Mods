@@ -2,7 +2,7 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta9
+// @version         1.0-beta10
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *
@@ -12,7 +12,6 @@
 // ==WindhawkModReadme==
 /*
 # Fix Darkmode ListViews
-
 Fixes hardcoded text color in ListViews when using a system-wide dark theme such
 as "Rectify11 dark theme".
 
@@ -21,10 +20,10 @@ as "Rectify11 dark theme".
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
 
 ## Configuration
-**Ignore Aero Theme Check:** Disables the `Aero.msstyles` check, forcing system
-colored text. Enable this option if you use the
+**Ignore Aero visual style check:** Disables the `Aero.msstyles` check, forcing
+system-colored text. Enable this option if you use the
 "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
-mod that forces a dark theme despite the default Aero theme being active.
+mod that forces a dark theme while the default Aero visual style is active.
 
 ---
 
@@ -35,12 +34,12 @@ mod that forces a dark theme despite the default Aero theme being active.
 
 // ==WindhawkModSettings==
 /*
-- ignoreAeroThemeCheck: false
-  $name: Ignore Aero Theme Check
+- ignoreAeroVisualStyleCheck: false
+  $name: Ignore Aero visual style check
   $description: >-
-    Disables the Aero.msstyles check, forcing system colored text. Enable this
+    Disables the Aero.msstyles check, forcing system-colored text. Enable this
     option if you use the "Translucent Windows" mod that forces a dark theme
-    despite the default Aero theme being active.
+    while the default Aero visual style is active.
 */
 // ==/WindhawkModSettings==
 
@@ -50,7 +49,7 @@ mod that forces a dark theme despite the default Aero theme being active.
 #include <uxtheme.h>
 
 struct {
-    bool ignoreAeroThemeCheck;
+    bool ignoreAeroVisualStyleCheck;
 } settings;
 
 bool IsDefaultAeroThemeActive()
@@ -77,7 +76,7 @@ void ApplyTheme(HWND hListView)
 {
     // Do not force text colors if the default Aero theme is active.
     // This prevents breaking apps that implement their own custom dark modes.
-    if (!settings.ignoreAeroThemeCheck && IsDefaultAeroThemeActive())
+    if (!settings.ignoreAeroVisualStyleCheck && IsDefaultAeroThemeActive())
     {
         return;
     }
@@ -90,19 +89,18 @@ BOOL ShouldApply(HWND hWndParent, LPCWSTR lpClassName)
 {
     return (hWndParent != nullptr &&
         lpClassName != nullptr &&
-        (((ULONG_PTR)lpClassName & ~(ULONG_PTR)0xffff) != 0) &&
+        ((reinterpret_cast<ULONG_PTR>(lpClassName) &
+            ~static_cast<ULONG_PTR>(0xffff)) != 0) &&
         wcscmp(lpClassName, L"SysListView32") == 0);
 }
 
 BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 {
     WCHAR lpClassName[256];
-    if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)))
+    if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)) &&
+        wcscmp(lpClassName, L"SysListView32") == 0)
     {
-        if (wcscmp(lpClassName, L"SysListView32") == 0)
-        {
-            ApplyTheme(hWnd);
-        }
+        ApplyTheme(hWnd);
     }
     return TRUE;
 }
@@ -155,7 +153,8 @@ LRESULT WINAPI DefDlgProcW_hook(HWND hDlg, UINT Msg, WPARAM wParam,
 
 void LoadSettings()
 {
-    settings.ignoreAeroThemeCheck = Wh_GetIntSetting(L"ignoreAeroThemeCheck");
+    settings.ignoreAeroVisualStyleCheck =
+        Wh_GetIntSetting(L"ignoreAeroVisualStyleCheck");
 }
 
 BOOL Wh_ModInit(void)

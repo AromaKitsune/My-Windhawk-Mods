@@ -2,7 +2,7 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta8
+// @version         1.0-beta9
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *
@@ -20,30 +20,49 @@ as "Rectify11 dark theme".
 | :----: | :---: |
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
 
+## Configuration
+**Ignore Aero Theme Check:** Disables the `Aero.msstyles` check, forcing system
+colored text. Enable this if you use mods such as "Translucent Windows" that
+force a dark theme despite the default Aero theme being active.
+
 [Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
 **Reabstraction**. This forked mod adds compatibility with dialogs.
 */
 // ==/WindhawkModReadme==
 
+// ==WindhawkModSettings==
+/*
+- ignoreAeroThemeCheck: false
+  $name: Ignore Aero Theme Check
+  $description: >-
+    Disables the Aero.msstyles check, forcing system colored text. Enable this
+    if you use mods such as "Translucent Windows" that force a dark theme
+    despite the default Aero theme being active.
+*/
+// ==/WindhawkModSettings==
+
+#include <windhawk_utils.h>
+#include <windows.h>
 #include <commctrl.h>
 #include <uxtheme.h>
 
-using CreateWindowExW_t = decltype(&CreateWindowExW);
-CreateWindowExW_t CreateWindowExW_orig;
-using DefDlgProcW_t = decltype(&DefDlgProcW);
-DefDlgProcW_t DefDlgProcW_orig;
+struct {
+    bool ignoreAeroThemeCheck;
+} settings;
 
 bool IsDefaultAeroThemeActive()
 {
     WCHAR szThemeFileName[MAX_PATH];
-    if (SUCCEEDED(GetCurrentThemeName(szThemeFileName, MAX_PATH, NULL, 0, NULL, 0)))
+    if (SUCCEEDED(GetCurrentThemeName(szThemeFileName, MAX_PATH, nullptr, 0,
+            nullptr, 0)))
     {
         WCHAR szLower[MAX_PATH];
-        wcscpy_s(szLower, MAX_PATH, szThemeFileName);
-        _wcslwr_s(szLower, MAX_PATH);
+        wcscpy_s(szLower, ARRAYSIZE(szLower), szThemeFileName);
+        _wcslwr_s(szLower, ARRAYSIZE(szLower));
 
-        // Check specifically for \aero\ folder to avoid catching custom \dark\aero.msstyles
-        if (wcsstr(szLower, L"\\aero\\aero.msstyles") != NULL)
+        // Check specifically for \aero\ folder to avoid catching custom
+        // \dark\aero.msstyles
+        if (wcsstr(szLower, L"\\aero\\aero.msstyles") != nullptr)
         {
             return true;
         }
@@ -55,7 +74,7 @@ void ApplyTheme(HWND hListView)
 {
     // Do not force text colors if the default Aero theme is active.
     // This prevents breaking apps that implement their own custom dark modes.
-    if (IsDefaultAeroThemeActive())
+    if (!settings.ignoreAeroThemeCheck && IsDefaultAeroThemeActive())
     {
         return;
     }
@@ -64,17 +83,29 @@ void ApplyTheme(HWND hListView)
     ListView_SetTextColor(hListView, GetSysColor(COLOR_WINDOWTEXT));
 }
 
-BOOL ShouldApply(
-    HWND hWndParent,
-    LPCWSTR lpClassName
-)
+BOOL ShouldApply(HWND hWndParent, LPCWSTR lpClassName)
 {
-    return (hWndParent != NULL
-    &&      lpClassName != NULL
-    &&      (((ULONG_PTR)lpClassName & ~(ULONG_PTR)0xffff) != 0)
-    &&      0 == wcscmp(lpClassName, L"SysListView32"));
+    return (hWndParent != nullptr &&
+        lpClassName != nullptr &&
+        (((ULONG_PTR)lpClassName & ~(ULONG_PTR)0xffff) != 0) &&
+        wcscmp(lpClassName, L"SysListView32") == 0);
 }
 
+BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
+{
+    WCHAR lpClassName[256];
+    if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)))
+    {
+        if (wcscmp(lpClassName, L"SysListView32") == 0)
+        {
+            ApplyTheme(hWnd);
+        }
+    }
+    return TRUE;
+}
+
+using CreateWindowExW_t = decltype(&CreateWindowExW);
+CreateWindowExW_t CreateWindowExW_orig;
 HWND WINAPI CreateWindowExW_hook(
     DWORD     dwExStyle,
     LPCWSTR   lpClassName,
@@ -104,20 +135,10 @@ HWND WINAPI CreateWindowExW_hook(
     return hRes;
 }
 
-BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
-{
-    WCHAR lpClassName[256];
-    if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)))
-    {
-        if (wcscmp(lpClassName, L"SysListView32") == 0)
-        {
-            ApplyTheme(hWnd);
-        }
-    }
-    return TRUE;
-}
-
-LRESULT WINAPI DefDlgProcW_hook(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam)
+using DefDlgProcW_t = decltype(&DefDlgProcW);
+DefDlgProcW_t DefDlgProcW_orig;
+LRESULT WINAPI DefDlgProcW_hook(HWND hDlg, UINT Msg, WPARAM wParam,
+    LPARAM lParam)
 {
     LRESULT res = DefDlgProcW_orig(hDlg, Msg, wParam, lParam);
 
@@ -129,27 +150,38 @@ LRESULT WINAPI DefDlgProcW_hook(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lPara
     return res;
 }
 
+void LoadSettings()
+{
+    settings.ignoreAeroThemeCheck = Wh_GetIntSetting(L"ignoreAeroThemeCheck");
+}
+
 BOOL Wh_ModInit(void)
 {
     Wh_Log(L"Mod loaded");
+    LoadSettings();
 
-    if (!Wh_SetFunctionHook(
-        (void *)CreateWindowExW,
-        (void *)CreateWindowExW_hook,
-        (void **)&CreateWindowExW_orig
+    if (!WindhawkUtils::SetFunctionHook(
+        CreateWindowExW,
+        CreateWindowExW_hook,
+        &CreateWindowExW_orig
     ))
     {
         return FALSE;
     }
 
-    if (!Wh_SetFunctionHook(
-        (void *)DefDlgProcW,
-        (void *)DefDlgProcW_hook,
-        (void **)&DefDlgProcW_orig
+    if (!WindhawkUtils::SetFunctionHook(
+        DefDlgProcW,
+        DefDlgProcW_hook,
+        &DefDlgProcW_orig
     ))
     {
         Wh_Log(L"Failed to hook DefDlgProcW");
     }
 
     return TRUE;
+}
+
+void Wh_ModSettingsChanged()
+{
+    LoadSettings();
 }

@@ -143,6 +143,11 @@ such as "Rectify11 dark theme".
 | :----: | :---: |
 | ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
 
+### Configuration
+**Ignore Aero Theme Check:** Disables the `Aero.msstyles` check, forcing system
+coloured text. Enable this if you use mods such as "Translucent Windows" that
+force a dark theme despite the default Aero theme being active.
+
 [Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
 **Reabstraction**. This forked mod adds compatibility with dialogs.
 

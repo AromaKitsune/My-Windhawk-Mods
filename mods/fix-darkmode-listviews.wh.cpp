@@ -2,7 +2,7 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta10
+// @version         1.0-beta13
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *
@@ -48,18 +48,19 @@ mod that forces a dark theme while the default Aero visual style is active.
 #include <commctrl.h>
 #include <uxtheme.h>
 
-struct {
+struct
+{
     bool ignoreAeroVisualStyleCheck;
 } settings;
 
-bool IsDefaultAeroThemeActive()
+bool IsDefaultAeroVisualStyleActive()
 {
-    WCHAR szThemeFileName[MAX_PATH];
-    if (SUCCEEDED(GetCurrentThemeName(szThemeFileName, MAX_PATH, nullptr, 0,
-            nullptr, 0)))
+    WCHAR szVisualStyleFileName[MAX_PATH];
+    if (SUCCEEDED(GetCurrentThemeName(szVisualStyleFileName, MAX_PATH, nullptr,
+            0, nullptr, 0)))
     {
         WCHAR szLower[MAX_PATH];
-        wcscpy_s(szLower, ARRAYSIZE(szLower), szThemeFileName);
+        wcscpy_s(szLower, ARRAYSIZE(szLower), szVisualStyleFileName);
         _wcslwr_s(szLower, ARRAYSIZE(szLower));
 
         // Check specifically for \aero\ folder to avoid catching custom
@@ -72,16 +73,17 @@ bool IsDefaultAeroThemeActive()
     return false;
 }
 
-void ApplyTheme(HWND hListView)
+void SetListViewTextColor(HWND hListView)
 {
-    // Do not force text colors if the default Aero theme is active.
+    // Do not force text colors if the default Aero visual style is active.
     // This prevents breaking apps that implement their own custom dark modes.
-    if (!settings.ignoreAeroVisualStyleCheck && IsDefaultAeroThemeActive())
+    if (!settings.ignoreAeroVisualStyleCheck &&
+        IsDefaultAeroVisualStyleActive())
     {
         return;
     }
 
-    // Dynamically match text color to system theme
+    // Dynamically match text color to system color
     ListView_SetTextColor(hListView, GetSysColor(COLOR_WINDOWTEXT));
 }
 
@@ -100,7 +102,7 @@ BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
     if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)) &&
         wcscmp(lpClassName, L"SysListView32") == 0)
     {
-        ApplyTheme(hWnd);
+        SetListViewTextColor(hWnd);
     }
     return TRUE;
 }
@@ -130,7 +132,7 @@ HWND WINAPI CreateWindowExW_hook(
 
     if (ShouldApply(hWndParent, lpClassName))
     {
-        ApplyTheme(hRes);
+        SetListViewTextColor(hRes);
     }
 
     return hRes;

@@ -2,7 +2,7 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta13
+// @version         1.0-beta15
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *
@@ -75,7 +75,7 @@ bool IsDefaultAeroVisualStyleActive()
 
 void SetListViewTextColor(HWND hListView)
 {
-    // Do not force text colors if the default Aero visual style is active.
+    // Do not convert text colors if the default Aero visual style is active.
     // This prevents breaking apps that implement their own custom dark modes.
     if (!settings.ignoreAeroVisualStyleCheck &&
         IsDefaultAeroVisualStyleActive())
@@ -107,50 +107,61 @@ BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
     return TRUE;
 }
 
+// Hook for CreateWindowExW
 using CreateWindowExW_t = decltype(&CreateWindowExW);
-CreateWindowExW_t CreateWindowExW_orig;
-HWND WINAPI CreateWindowExW_hook(
-    DWORD     dwExStyle,
-    LPCWSTR   lpClassName,
-    LPCWSTR   lpWindowName,
-    DWORD     dwStyle,
-    int       X,
-    int       Y,
-    int       nWidth,
-    int       nHeight,
-    HWND      hWndParent,
-    HMENU     hMenu,
+CreateWindowExW_t CreateWindowExW_Original;
+HWND WINAPI CreateWindowExW_Hook(
+    DWORD dwExStyle,
+    LPCWSTR lpClassName,
+    LPCWSTR lpWindowName,
+    DWORD dwStyle,
+    int X,
+    int Y,
+    int nWidth,
+    int nHeight,
+    HWND hWndParent,
+    HMENU hMenu,
     HINSTANCE hInstance,
-    LPVOID    lpParam
+    LPVOID lpParam
 )
 {
-    HWND hRes = CreateWindowExW_orig(
-        dwExStyle, lpClassName, lpWindowName, dwStyle,
-        X, Y, nWidth, nHeight, hWndParent, hMenu,
-        hInstance, lpParam
+    HWND hWnd = CreateWindowExW_Original(
+        dwExStyle,
+        lpClassName,
+        lpWindowName,
+        dwStyle,
+        X,
+        Y,
+        nWidth,
+        nHeight,
+        hWndParent,
+        hMenu,
+        hInstance,
+        lpParam
     );
 
     if (ShouldApply(hWndParent, lpClassName))
     {
-        SetListViewTextColor(hRes);
+        SetListViewTextColor(hWnd);
     }
 
-    return hRes;
+    return hWnd;
 }
 
+// Hook for DefDlgProcW
 using DefDlgProcW_t = decltype(&DefDlgProcW);
-DefDlgProcW_t DefDlgProcW_orig;
-LRESULT WINAPI DefDlgProcW_hook(HWND hDlg, UINT Msg, WPARAM wParam,
+DefDlgProcW_t DefDlgProcW_Original;
+LRESULT WINAPI DefDlgProcW_Hook(HWND hDlg, UINT Msg, WPARAM wParam,
     LPARAM lParam)
 {
-    LRESULT res = DefDlgProcW_orig(hDlg, Msg, wParam, lParam);
+    LRESULT lResult = DefDlgProcW_Original(hDlg, Msg, wParam, lParam);
 
     if (Msg == WM_INITDIALOG)
     {
         EnumChildWindows(hDlg, EnumChildProc, 0);
     }
 
-    return res;
+    return lResult;
 }
 
 void LoadSettings()
@@ -159,28 +170,23 @@ void LoadSettings()
         Wh_GetIntSetting(L"ignoreAeroVisualStyleCheck");
 }
 
-BOOL Wh_ModInit(void)
+BOOL Wh_ModInit()
 {
-    Wh_Log(L"Mod loaded");
+    Wh_Log(L"Init");
+
     LoadSettings();
 
-    if (!WindhawkUtils::SetFunctionHook(
+    WindhawkUtils::SetFunctionHook(
         CreateWindowExW,
-        CreateWindowExW_hook,
-        &CreateWindowExW_orig
-    ))
-    {
-        return FALSE;
-    }
+        CreateWindowExW_Hook,
+        &CreateWindowExW_Original
+    );
 
-    if (!WindhawkUtils::SetFunctionHook(
+    WindhawkUtils::SetFunctionHook(
         DefDlgProcW,
-        DefDlgProcW_hook,
-        &DefDlgProcW_orig
-    ))
-    {
-        Wh_Log(L"Failed to hook DefDlgProcW");
-    }
+        DefDlgProcW_Hook,
+        &DefDlgProcW_Original
+    );
 
     return TRUE;
 }

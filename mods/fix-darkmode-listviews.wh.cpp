@@ -22,7 +22,7 @@ as "Rectify11 dark theme".
 
 ## Configuration
 **Ignore Aero Theme Check:** Disables the `Aero.msstyles` check, forcing system
-colored text. Enable this if you use the
+colored text. Enable this option if you use the
 "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
 mod that forces a dark theme despite the default Aero theme being active.
 
@@ -37,8 +37,8 @@ mod that forces a dark theme despite the default Aero theme being active.
   $name: Ignore Aero Theme Check
   $description: >-
     Disables the Aero.msstyles check, forcing system colored text. Enable this
-    if you use the "Translucent Windows" mod that forces a dark theme despite
-    the default Aero theme being active.
+    option if you use the "Translucent Windows" mod that forces a dark theme
+    despite the default Aero theme being active.
 */
 // ==/WindhawkModSettings==
 

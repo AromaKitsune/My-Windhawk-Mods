@@ -21,12 +21,13 @@ as "Rectify11 dark theme".
 
 ## Configuration
 * **Ignore Aero visual style check:** Disables the `Aero.msstyles` check,
-  converting to system-colored text.
-  * This check prevents breaking apps that implement their own custom dark
-    modes. Leave it off if you're using the default Aero visual style.
+  making ListViews always use system-colored text.
+  * Without this check, apps with built-in dark modes would render unreadable
+    dark text on dark ListViews because the mod applies the system text color
+    while the default Aero visual style is active.
   * Enable this option if you use the
     "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
-    mod that applies a dark theme while the default Aero visual style is active.
+    mod while the default Aero visual style is active.
 
 ---
 
@@ -40,8 +41,8 @@ as "Rectify11 dark theme".
 - ignoreAeroVisualStyleCheck: false
   $name: Ignore Aero visual style check
   $description: >-
-    Disables the Aero.msstyles check, converting to system-colored text.
-    Enable this option if you use the "Translucent Windows" mod while the
+    Disables the Aero.msstyles check, making ListViews always use system-colored
+    text. Enable this option if you use the "Translucent Windows" mod while the
     default Aero visual style is active.
 */
 // ==/WindhawkModSettings==

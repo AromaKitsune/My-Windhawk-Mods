@@ -20,9 +20,9 @@ as "Rectify11 dark theme".
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
 
 ## Configuration
-* **Translucent Windows compatibility:** Fixes unreadable dark text in the
-  Explorer address bar drop-down menu when using the
-  "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
+**Translucent Windows compatibility:** Fixes unreadable dark text in the
+Explorer address bar drop-down menu when using the
+"[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
 
 ---
 

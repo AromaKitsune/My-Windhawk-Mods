@@ -307,6 +307,10 @@ You can mix and match the following options in the settings tab:
 
 ---
 
+<br>
+<h1 align="center">Info</h1>
+<br>
+
 ## How to install Mods
 First, install [Windhawk](https://windhawk.net/) and pick one method below to
 install mods:

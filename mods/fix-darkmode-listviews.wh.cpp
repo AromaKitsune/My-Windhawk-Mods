@@ -27,7 +27,8 @@ as "Rectify11 dark theme".
     while the default Aero visual style is active.
   * Enable this option if you use the
     "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
-    mod while the default Aero visual style is active.
+    mod while the default Aero visual style is active. That mod already handles
+    light text color properly within apps featuring built-in dark modes.
 
 ---
 

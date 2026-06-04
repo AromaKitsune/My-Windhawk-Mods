@@ -20,7 +20,7 @@ Customize the "Library" tree view sidebar in VMware Workstation.
 
 ## Features & Configuration
 You can mix and match the following options in the settings tab:
-* **Item Height:** Adjust the vertical spacing of the virtual machines in the
+* **Item Height:** Adjusts the vertical spacing of the virtual machines in the
   list (Default: 18px).
 * **Themed TreeView:** Applies the Explorer visual style.
 * **Full-Row Selection:** Expands the highlight selection box across the entire

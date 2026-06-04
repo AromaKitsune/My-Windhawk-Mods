@@ -274,7 +274,7 @@ time.
 
 ---
 
-# VMware Workstation Library TreeView Tweaks
+## VMware Workstation Library TreeView Tweaks
 [C++ source code](/mods/vmware-workstation-library-treeview-tweaks.wh.cpp)
 
 Customise the "Library" tree view sidebar in VMware Workstation.

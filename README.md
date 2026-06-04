@@ -145,15 +145,9 @@ such as "Rectify11 dark theme".
 | ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
 
 ### Configuration
-* **Ignore Aero visual style check:** Disables the `Aero.msstyles` check,
-  making ListViews always use system-coloured text.
-  * Without this check, apps with built-in dark modes would render unreadable
-    dark text on dark ListViews because the mod applies the system text colour
-    while the default Aero visual style is active.
-  * Enable this option if you use the
-    "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
-    mod while the default Aero visual style is active. That mod already handles
-    light text colour properly within apps featuring built-in dark modes.
+* **Translucent Windows compatibility:** Fixes unreadable dark text in the
+  Explorer address bar drop-down menu when using the
+  "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
 
 ---
 

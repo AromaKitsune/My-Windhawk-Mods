@@ -12,6 +12,7 @@ Windows and various apps.
 * [Notepad++ Tweaks](#notepad-tweaks)
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
 * [Transparent Idle Desktop Icons](#transparent-idle-desktop-icons)
+* [VMware Workstation Library TreeView Tweaks](#vmware-workstation-library-treeview-tweaks)
 
 ## Info
 * [How to install Mods](#how-to-install-mods)
@@ -270,6 +271,32 @@ Running both mods simultaneously will cause the wallpaper to turn completely
 black when interacting with the desktop, or artificially darken when idle. For
 the best experience, it is highly recommended to use only one of these mods at a
 time.
+
+---
+
+# VMware Workstation Library TreeView Tweaks
+[C++ source code](/mods/vmware-workstation-library-treeview-tweaks.wh.cpp)
+
+Customise the "Library" tree view sidebar in VMware Workstation.
+
+| Default | Height: 40px |
+| :-----: | :----------: |
+| ![](/screenshots/vmware-workstation-library-treeview-tweaks_default.png) | ![](/screenshots/vmware-workstation-library-treeview-tweaks_40px.png) |
+
+### Features & Configuration
+You can mix and match the following options in the settings tab:
+* **Item Height:** Adjust the vertical spacing of the virtual machines in the
+  list (Default: 18px).
+* **Themed TreeView:** Applies the Explorer visual style.
+* **Full-Row Selection:** Expands the highlight selection box across the entire
+  width of the sidebar.
+* **Tree Indentation:** Controls the horizontal spacing/indentation of VMs and
+  folders (Default: 18px). Lower this to push VMs closer to the left edge.
+* **Modern Flat Border:** Replaces the 3D sunken border flat 1px line.
+* **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a
+  minimalist look. You can still expand folders by double-clicking them.
+* **Disable ToolTips:** Hides the tooltips that appear when hovering over
+  truncated virtual machine names.
 
 ---
 

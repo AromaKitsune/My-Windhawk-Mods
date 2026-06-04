@@ -1,7 +1,7 @@
 // ==WindhawkMod==
 // @id              vmware-workstation-library-treeview-tweaks
 // @name            VMware Workstation Library TreeView Tweaks
-// @description     Increases item height, applies modern Explorer themes, and customizes indentation in the Library tree view in VMware Workstation.
+// @description     Customize the "Library" tree view sidebar in VMware Workstation
 // @version         0.1-beta39
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
@@ -12,20 +12,26 @@
 // ==WindhawkModReadme==
 /*
 # VMware Workstation Library TreeView Tweaks
-This mod modernizes and customizes the "Library" tree view sidebar in VMware Workstation. By default, VMware uses an older, cramped tree view style with classic 3D borders. This mod allows you to inject modern Windows UI elements, improve spacing, and cleanly format the list to your liking.
+Customize the "Library" tree view sidebar in VMware Workstation.
 
-![Preview](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks.png)
+| Default | Height: 40px |
+| :-----: | :----------: |
+| ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks_default.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks_40px.png) |
 
 ## Features & Configuration
-All visual tweaks dynamically scale with your monitor's DPI settings. You can mix and match the following options in the settings tab:
-
-* **Item Height:** Adjust the vertical spacing of the virtual machines in the list (Default: 18px).
-* **Themed TreeView:** Applies the modern Windows File Explorer visual style (fading selection boxes, updated expand/collapse arrows). Automatically and instantly syncs with VMware's Dark Mode / System Theme settings!
-* **Full-Row Selection:** Expands the highlight selection box across the entire width of the sidebar.
-* **Tree Indentation:** Controls the horizontal spacing/indentation of child VMs and folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern Flat Border:** Replaces the dated 3D sunken border (`WS_EX_CLIENTEDGE`) with a clean, flat 1px line (`WS_BORDER`).
-* **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a minimalist look. (You can still expand folders by double-clicking them).
-* **Disable ToolTips:** Hides the native popup tooltips that appear when hovering over truncated virtual machine names.
+You can mix and match the following options in the settings tab:
+* **Item Height:** Adjust the vertical spacing of the virtual machines in the
+  list (Default: 18px).
+* **Themed TreeView:** Applies the Explorer visual style.
+* **Full-Row Selection:** Expands the highlight selection box across the entire
+  width of the sidebar.
+* **Tree Indentation:** Controls the horizontal spacing/indentation of VMs and
+  folders (Default: 18px). Lower this to push VMs closer to the left edge.
+* **Modern Flat Border:** Replaces the 3D sunken border flat 1px line.
+* **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a
+  minimalist look. You can still expand folders by double-clicking them.
+* **Disable ToolTips:** Hides the tooltips that appear when hovering over
+  truncated virtual machine names.
 */
 // ==/WindhawkModReadme==
 

@@ -292,7 +292,7 @@ You can mix and match the following options in the settings tab:
   width of the sidebar.
 * **Tree Indentation:** Controls the horizontal spacing/indentation of VMs and
   folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern Flat Border:** Replaces the 3D sunken border flat 1px line.
+* **Modern Flat Border:** Replaces the 3D sunken border with a flat 1px line.
 * **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a
   minimalist look. You can still expand folders by double-clicking them.
 * **Disable ToolTips:** Hides the tooltips that appear when hovering over

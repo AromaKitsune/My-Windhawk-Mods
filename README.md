@@ -144,10 +144,13 @@ such as "Rectify11 dark theme".
 | ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
 
 ### Configuration
-**Ignore Aero visual style check:** Disables the `Aero.msstyles` check, forcing
-system-coloured text. Enable this option if you use the
-"[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
-mod that forces a dark theme while the default Aero visual style is active.
+* **Ignore Aero visual style check:** Disables the `Aero.msstyles` check,
+  converting to system-coloured text.
+  * This check prevents breaking apps that implement their own custom dark
+    modes. Leave it off if you're using the default Aero visual style.
+  * Enable this option if you use the
+    "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
+    mod that applies a dark theme while the default Aero visual style is active.
 
 ---
 

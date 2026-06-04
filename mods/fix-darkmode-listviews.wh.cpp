@@ -2,7 +2,7 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta15
+// @version         1.0-beta17
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *
@@ -20,10 +20,13 @@ as "Rectify11 dark theme".
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
 
 ## Configuration
-**Ignore Aero visual style check:** Disables the `Aero.msstyles` check, forcing
-system-colored text. Enable this option if you use the
-"[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
-mod that forces a dark theme while the default Aero visual style is active.
+* **Ignore Aero visual style check:** Disables the `Aero.msstyles` check,
+  converting to system-colored text.
+  * This check prevents breaking apps that implement their own custom dark
+    modes. Leave it off if you're using the default Aero visual style.
+  * Enable this option if you use the
+    "[Translucent Windows](https://windhawk.net/mods/translucent-windows)"
+    mod that applies a dark theme while the default Aero visual style is active.
 
 ---
 
@@ -37,9 +40,9 @@ mod that forces a dark theme while the default Aero visual style is active.
 - ignoreAeroVisualStyleCheck: false
   $name: Ignore Aero visual style check
   $description: >-
-    Disables the Aero.msstyles check, forcing system-colored text. Enable this
-    option if you use the "Translucent Windows" mod that forces a dark theme
-    while the default Aero visual style is active.
+    Disables the Aero.msstyles check, converting to system-colored text.
+    Enable this option if you use the "Translucent Windows" mod while the
+    default Aero visual style is active.
 */
 // ==/WindhawkModSettings==
 

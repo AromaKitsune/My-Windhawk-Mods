@@ -152,7 +152,8 @@ such as "Rectify11 dark theme".
 ---
 
 [Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
-**Reabstraction**. This forked mod adds compatibility with dialogs.
+**Reabstraction**. This forked mod adds compatibility with dialogs and
+"Translucent Windows" mod.
 
 ---
 

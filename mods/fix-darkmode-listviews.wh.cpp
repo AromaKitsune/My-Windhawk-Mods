@@ -27,7 +27,8 @@ as "Rectify11 dark theme".
 ---
 
 [Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
-**Reabstraction**. This forked mod adds compatibility with dialogs.
+**Reabstraction**. This forked mod adds compatibility with dialogs and
+"Translucent Windows" mod.
 */
 // ==/WindhawkModReadme==
 
@@ -37,7 +38,7 @@ as "Rectify11 dark theme".
   $name: Translucent Windows compatibility
   $description: >-
     Fixes unreadable dark text in the Explorer address bar drop-down menu when
-    using the "Translucent Windows" mod.
+    using the "Translucent Windows" mod
 */
 // ==/WindhawkModSettings==
 

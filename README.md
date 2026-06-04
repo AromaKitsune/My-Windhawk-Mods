@@ -3,14 +3,18 @@ My collection of Windhawk mods for tweaking the behaviours and UI of Microsoft
 Windows and various apps.
 
 ## List of Mods
+
+### Mods available on the Windhawk marketplace
 * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
 * [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
 * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
 * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
-* [Fix Darkmode ListViews](#fix-darkmode-listviews)
 * [Never Auto-Expand Explorer Tree Items](#never-auto-expand-explorer-tree-items)
-* [Notepad++ Tweaks](#notepad-tweaks)
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
+
+### Mods available on this GitHub repo
+* [Fix Darkmode ListViews](#fix-darkmode-listviews)
+* [Notepad++ Tweaks](#notepad-tweaks)
 * [Transparent Idle Desktop Icons](#transparent-idle-desktop-icons)
 * [VMware Workstation Library TreeView Tweaks](#vmware-workstation-library-treeview-tweaks)
 
@@ -18,6 +22,10 @@ Windows and various apps.
 * [How to install Mods](#how-to-install-mods)
 
 ---
+
+<br>
+<h1 align="center">Mods available on the Windhawk marketplace</h1>
+<br>
 
 ## Confirm Closing Multiple Tabs in File Explorer
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
@@ -134,29 +142,6 @@ Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 
 ---
 
-## Fix Darkmode ListViews
-[C++ source code](/mods/fix-darkmode-listviews.wh.cpp)
-
-Fixes hardcoded text colour in ListViews when using a system-wide dark theme
-such as "Rectify11 dark theme".
-
-| Before | After |
-| :----: | :---: |
-| ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
-
-### Configuration
-**Translucent Windows compatibility:** Fixes unreadable dark text in the
-Explorer address bar drop-down menu when using the
-"[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
-
----
-
-[Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
-**Reabstraction**. This forked mod adds compatibility with dialogs and
-"Translucent Windows" mod.
-
----
-
 ## Never Auto-Expand Explorer Tree Items
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/never-auto-expand-explorer-tree-items)
 | [C++ source code](/mods/never-auto-expand-explorer-tree-items.wh.cpp)
@@ -182,37 +167,6 @@ pane tidy.
   auto-expand while keeping their nested items collapsed.
   * Enable this option if you want the "This PC" item to auto-expand while
     keeping its drive items collapsed.
-
----
-
-## Notepad++ Tweaks
-[C++ source code](/mods/notepad-plus-plus-tweaks.wh.cpp)
-
-This mod applies tweaks to Notepad++ to improve usability.
-
-### Remove Border from Scintilla
-Removes the border from the main text editing area (Scintilla control).
-
-**Why?**: When the border is visible, a 1px gap exists between the vertical
-scroll bar and the right edge of the screen in a maximised window. This prevents
-you from simply flicking your mouse cursor to the right screen edge to grab the
-scroll bar. Removing the border eliminates this gap, making the scroll bar
-easier to grab.
-
-### Remove InfoTip from Document List
-Removes the tooltip (InfoTip) that appears when hovering over files in the
-"Document List" panel.
-
-**Why?**: The default InfoTip can be intrusive; if you hover over file item 1,
-the tooltip often appears over file item 2, obscuring it.
-
-Additionally, on Windows 11, this prevents the mouse hover effect from
-triggering on the obscured item, making the list feel unresponsive to cursor
-movement. Curiously, this issue also affects several items below it (e.g., items
-3, 4, 5), even though the tooltip is only obscuring item 2. This is a
-system-wide bug that affects `SysListView32` controls (not just in Notepad++)
-and does not occur in Windows 10 or earlier. Removing the InfoTip solves this
-obstruction.
 
 ---
 
@@ -246,6 +200,64 @@ icon restoration code integrated, so you don't need to use both mods together.
 * Windows 11
 * Windows 10
 * Windows 8.1
+
+---
+
+<br>
+<h1 align="center">Mods available on this GitHub repo</h1>
+<br>
+
+## Fix Darkmode ListViews
+[C++ source code](/mods/fix-darkmode-listviews.wh.cpp)
+
+Fixes hardcoded text colour in ListViews when using a system-wide dark theme
+such as "Rectify11 dark theme".
+
+| Before | After |
+| :----: | :---: |
+| ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
+
+### Configuration
+**Translucent Windows compatibility:** Fixes unreadable dark text in the
+Explorer address bar drop-down menu when using the
+"[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
+
+---
+
+[Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
+**Reabstraction**. This forked mod adds compatibility with dialogs and
+"Translucent Windows" mod.
+
+---
+
+## Notepad++ Tweaks
+[C++ source code](/mods/notepad-plus-plus-tweaks.wh.cpp)
+
+This mod applies tweaks to Notepad++ to improve usability.
+
+### Remove Border from Scintilla
+Removes the border from the main text editing area (Scintilla control).
+
+**Why?**: When the border is visible, a 1px gap exists between the vertical
+scroll bar and the right edge of the screen in a maximised window. This prevents
+you from simply flicking your mouse cursor to the right screen edge to grab the
+scroll bar. Removing the border eliminates this gap, making the scroll bar
+easier to grab.
+
+### Remove InfoTip from Document List
+Removes the tooltip (InfoTip) that appears when hovering over files in the
+"Document List" panel.
+
+**Why?**: The default InfoTip can be intrusive; if you hover over file item 1,
+the tooltip often appears over file item 2, obscuring it.
+
+Additionally, on Windows 11, this prevents the mouse hover effect from
+triggering on the obscured item, making the list feel unresponsive to cursor
+movement. Curiously, this issue also affects several items below it (e.g., items
+3, 4, 5), even though the tooltip is only obscuring item 2. This is a
+system-wide bug that affects `SysListView32` controls (not just in Notepad++)
+and does not occur in Windows 10 or earlier. Removing the InfoTip solves this
+obstruction.
 
 ---
 

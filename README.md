@@ -24,7 +24,7 @@ Windows and various apps.
 ---
 
 <br>
-<h2 align="center">Mods available on the Windhawk marketplace</h2>
+<h2 align="center">List of Mods available on the Windhawk marketplace</h2>
 
 ## Confirm Closing Multiple Tabs in File Explorer
 [Install this mod from the Windhawk marketplace](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
@@ -203,7 +203,7 @@ icon restoration code integrated, so you don't need to use both mods together.
 ---
 
 <br>
-<h2 align="center">Mods available on this GitHub repo</h2>
+<h2 align="center">List of Mods available on this GitHub repo</h2>
 
 ## Fix Darkmode ListViews
 [C++ source code](/mods/fix-darkmode-listviews.wh.cpp)

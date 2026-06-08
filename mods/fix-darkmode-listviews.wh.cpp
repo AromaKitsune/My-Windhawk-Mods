@@ -2,11 +2,11 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta30
+// @version         1.0-beta40
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *
-// @compilerOptions -lcomctl32 -lgdi32 -luxtheme
+// @compilerOptions -lcomctl32 -lgdi32 -luxtheme -lntdll
 // ==/WindhawkMod==
 
 // ==WindhawkModReadme==
@@ -19,16 +19,19 @@ as "Rectify11 dark theme".
 | :----: | :---: |
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
 
+## Extended features
+The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created
+by **Reabstraction**. This forked mod significantly expands the scope of the
+original fix with the following improvements:
+* Added compatibility with dialogs
+* Added compatibility with  "Translucent Windows" mod.
+* Fixed unreadable hardcoded blue and green text colors for compressed and
+  encrypted files/folders.
+
 ## Configuration
 **Translucent Windows compatibility:** Fixes unreadable dark text in the
 Explorer address bar drop-down menu when using the
 "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
-
----
-
-[Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
-**Reabstraction**. This forked mod adds compatibility with dialogs and
-"Translucent Windows" mod.
 */
 // ==/WindhawkModReadme==
 
@@ -46,6 +49,7 @@ Explorer address bar drop-down menu when using the
 #include <windows.h>
 #include <commctrl.h>
 #include <uxtheme.h>
+#include <string_view>
 
 struct
 {
@@ -55,8 +59,55 @@ struct
 // Define OCM_NOTIFY for message reflection
 constexpr UINT OCM_NOTIFY = 0x204E;
 
-// Thread-local flag to track when a DropDown's ListView is actively painting.
+// Theme Part and State Definitions for ItemsView
+namespace ThemeProps
+{
+    constexpr int PART_PROPERTY = 4;
+    constexpr int STATE_FILENAMECOMPRESSEDPROPERTY = 5;
+    constexpr int STATE_FILENAMEENCRYPTEDPROPERTY = 7;
+    constexpr int TMT_TEXTCOLOR = 3803;
+}
+
+// Dark-Mode Friendly Replacement Colors for the Registry Spoof Fallback
+constexpr COLORREF COLOR_COMPRESSED_DARK = RGB(86, 156, 214);
+constexpr COLORREF COLOR_ENCRYPTED_DARK  = RGB(78, 201, 176);
+
+// NTDLL Constants for NtQueryKey
+constexpr NTSTATUS STATUS_SUCCESS = 0x00000000;
+constexpr NTSTATUS STATUS_BUFFER_TOO_SMALL = static_cast<NTSTATUS>(0xC0000023);
+
+// Thread-local flags
 thread_local bool g_bInsideDropDownPaint = false;
+thread_local bool g_bInsideRegistrySpoof = false;
+
+enum KEY_INFORMATION_CLASS
+{
+    KeyNameInformation = 3
+};
+
+struct KEY_NAME_INFORMATION
+{
+    ULONG NameLength;
+    WCHAR Name[1];
+};
+
+EXTERN_C NTSYSAPI NTSTATUS NTAPI NtQueryKey(
+    IN HANDLE KeyHandle,
+    IN KEY_INFORMATION_CLASS KeyInformationClass,
+    OUT PVOID KeyInformation,
+    IN ULONG Length,
+    OUT PULONG ResultLength
+);
+
+bool EndsWith(std::wstring_view str, std::wstring_view suffix)
+{
+    if (str.length() < suffix.length())
+    {
+        return false;
+    }
+    return (_wcsnicmp(str.data() + str.length() - suffix.length(),
+        suffix.data(), suffix.length()) == 0);
+}
 
 bool IsDefaultAeroVisualStyleActive()
 {
@@ -76,6 +127,32 @@ bool IsDefaultAeroVisualStyleActive()
         }
     }
     return false;
+}
+
+// Dynamically fetch the text color from the active .msstyles file
+COLORREF GetThemeAltColor(bool bIsCompressed)
+{
+    // Set our dark pastel colors as the default safety fallback
+    COLORREF color = bIsCompressed ? COLOR_COMPRESSED_DARK : COLOR_ENCRYPTED_DARK;
+
+    // Open the specific DarkMode ItemsView class
+    HTHEME hTheme = OpenThemeData(nullptr, L"DarkMode::ItemsView");
+    if (hTheme != nullptr)
+    {
+        COLORREF themeColor;
+        int iStateId = bIsCompressed ? ThemeProps::STATE_FILENAMECOMPRESSEDPROPERTY : ThemeProps::STATE_FILENAMEENCRYPTEDPROPERTY;
+
+        // Query the active theme for the TEXTCOLOR property
+        HRESULT hr = GetThemeColor(hTheme, ThemeProps::PART_PROPERTY, iStateId, ThemeProps::TMT_TEXTCOLOR, &themeColor);
+        if (SUCCEEDED(hr))
+        {
+            // If the theme author explicitly defined it, override our fallback!
+            color = themeColor;
+        }
+        CloseThemeData(hTheme);
+    }
+
+    return color;
 }
 
 void SetListViewTextColor(HWND hListView)
@@ -124,7 +201,7 @@ LRESULT CALLBACK DropDownListViewSubclassProc(HWND hWnd, UINT uMsg,
     return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
-BOOL CALLBACK EnumDropDownChildProc(HWND hWnd, LPARAM lParam)
+BOOL CALLBACK InitDropDownListViewEnumProc(HWND hWnd, LPARAM lParam)
 {
     WCHAR lpClassName[256];
     if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)) &&
@@ -142,7 +219,7 @@ LRESULT CALLBACK DropDownSubclassProc(HWND hWnd, UINT uMsg,
 {
     if (uMsg == WM_SHOWWINDOW && wParam == TRUE)
     {
-        EnumChildWindows(hWnd, EnumDropDownChildProc, 0);
+        EnumChildWindows(hWnd, InitDropDownListViewEnumProc, 0);
     }
     else if (uMsg == WM_NCDESTROY)
     {
@@ -152,7 +229,7 @@ LRESULT CALLBACK DropDownSubclassProc(HWND hWnd, UINT uMsg,
     return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 }
 
-BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
+BOOL CALLBACK InitDialogListViewEnumProc(HWND hWnd, LPARAM lParam)
 {
     WCHAR lpClassName[256];
     if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)) &&
@@ -164,7 +241,7 @@ BOOL CALLBACK EnumChildProc(HWND hWnd, LPARAM lParam)
 }
 
 // Enumeration callback: Attach the subclass to existing DropDown windows
-BOOL CALLBACK EnumWindows_AttachDropDowns(HWND hWnd, LPARAM lParam)
+BOOL CALLBACK InitEnumDropDownWindowsProc(HWND hWnd, LPARAM lParam)
 {
     WCHAR szClassName[256];
     if (GetClassNameW(hWnd, szClassName, ARRAYSIZE(szClassName)) &&
@@ -177,7 +254,7 @@ BOOL CALLBACK EnumWindows_AttachDropDowns(HWND hWnd, LPARAM lParam)
 }
 
 // Enumeration callback: Detach the subclass from existing DropDown ListViews
-BOOL CALLBACK EnumDropDownChildProc_Detach(HWND hWnd, LPARAM lParam)
+BOOL CALLBACK UninitDropDownListViewEnumProc(HWND hWnd, LPARAM lParam)
 {
     WCHAR lpClassName[256];
     if (GetClassNameW(hWnd, lpClassName, ARRAYSIZE(lpClassName)) &&
@@ -190,20 +267,116 @@ BOOL CALLBACK EnumDropDownChildProc_Detach(HWND hWnd, LPARAM lParam)
 }
 
 // Enumeration callback: Detach the subclass from existing DropDown windows
-BOOL CALLBACK EnumWindows_DetachDropDowns(HWND hWnd, LPARAM lParam)
+BOOL CALLBACK UninitEnumDropDownWindowsProc(HWND hWnd, LPARAM lParam)
 {
     WCHAR szClassName[256];
     if (GetClassNameW(hWnd, szClassName, ARRAYSIZE(szClassName)) &&
         wcscmp(szClassName, L"DropDown") == 0)
     {
         // Detach inner ListView subclasses first
-        EnumChildWindows(hWnd, EnumDropDownChildProc_Detach, 0);
+        EnumChildWindows(hWnd, UninitDropDownListViewEnumProc, 0);
 
         // Detach the parent DropDown subclass
         WindhawkUtils::RemoveWindowSubclassFromAnyThread(hWnd,
             DropDownSubclassProc);
     }
     return TRUE;
+}
+
+// Hook for RegQueryValueExW via kernelbase.dll to spoof Explorer colors
+using RegQueryValueExW_t = decltype(&RegQueryValueExW);
+RegQueryValueExW_t RegQueryValueExW_Original;
+LSTATUS WINAPI RegQueryValueExW_Hook(HKEY hKey, LPCWSTR lpValueName,
+    LPDWORD lpReserved, LPDWORD lpType, LPBYTE lpData, LPDWORD lpcbData)
+{
+    if (!g_bInsideRegistrySpoof && lpValueName != nullptr)
+    {
+        bool bIsAltColor = (_wcsicmp(lpValueName, L"AltColor") == 0);
+        bool bIsAltEncryption = !bIsAltColor &&
+            (_wcsicmp(lpValueName, L"AltEncryptionColor") == 0);
+
+        if (bIsAltColor || bIsAltEncryption)
+        {
+            // Only spoof the colors if a custom visual style is active
+            if (!IsDefaultAeroVisualStyleActive())
+            {
+                bool bIsExplorerKey = false;
+                ULONG ulAlloc = 0;
+                NTSTATUS status = NtQueryKey(hKey, KeyNameInformation, nullptr,
+                    0, &ulAlloc);
+
+                if (status == STATUS_BUFFER_TOO_SMALL)
+                {
+                    ulAlloc += sizeof(WCHAR);
+                    auto* pNameInfo = reinterpret_cast<KEY_NAME_INFORMATION*>(
+                        LocalAlloc(LPTR, ulAlloc));
+
+                    if (pNameInfo != nullptr)
+                    {
+                        status = NtQueryKey(hKey, KeyNameInformation, pNameInfo,
+                            ulAlloc, &ulAlloc);
+
+                        if (status == STATUS_SUCCESS)
+                        {
+                            pNameInfo->Name[pNameInfo->NameLength / sizeof(WCHAR)] = L'\0';
+                            if (EndsWith(pNameInfo->Name,
+                                    L"\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer"))
+                            {
+                                bIsExplorerKey = true;
+                            }
+                        }
+                        LocalFree(pNameInfo);
+                    }
+                }
+
+                if (bIsExplorerKey)
+                {
+                    // Engage recursion guard because GetThemeAltColor triggers API calls
+                    g_bInsideRegistrySpoof = true;
+
+                    if (lpType != nullptr)
+                    {
+                        *lpType = REG_DWORD;
+                    }
+
+                    // Pass 1: Sizing query
+                    if (lpData == nullptr && lpcbData != nullptr)
+                    {
+                        *lpcbData = sizeof(DWORD);
+                        g_bInsideRegistrySpoof = false;
+                        return ERROR_SUCCESS;
+                    }
+
+                    // Pass 2: Data query
+                    if (lpData != nullptr && lpcbData != nullptr)
+                    {
+                        if (*lpcbData >= sizeof(DWORD))
+                        {
+                            // Fetch the visual color
+                            COLORREF themeColor = GetThemeAltColor(bIsAltColor);
+
+                            // Write it into the registry buffer as a standard DWORD
+                            *reinterpret_cast<DWORD*>(lpData) = static_cast<DWORD>(themeColor);
+                            *lpcbData = sizeof(DWORD);
+                            g_bInsideRegistrySpoof = false;
+                            return ERROR_SUCCESS;
+                        }
+                        else
+                        {
+                            *lpcbData = sizeof(DWORD);
+                            g_bInsideRegistrySpoof = false;
+                            return ERROR_MORE_DATA;
+                        }
+                    }
+
+                    g_bInsideRegistrySpoof = false;
+                }
+            }
+        }
+    }
+
+    return RegQueryValueExW_Original(hKey, lpValueName, lpReserved, lpType,
+        lpData, lpcbData);
 }
 
 // Hook for GDI SetTextColor
@@ -309,7 +482,7 @@ LRESULT WINAPI DefDlgProcW_Hook(HWND hDlg, UINT Msg, WPARAM wParam,
 
     if (Msg == WM_INITDIALOG)
     {
-        EnumChildWindows(hDlg, EnumChildProc, 0);
+        EnumChildWindows(hDlg, InitDialogListViewEnumProc, 0);
     }
 
     return lResult;
@@ -339,6 +512,28 @@ BOOL Wh_ModInit()
         &DefDlgProcW_Original
     );
 
+    // Deep hook into kernelbase.dll to ensure early registry spoofing succeeds
+    HMODULE hKernelBase = GetModuleHandleW(L"kernelbase.dll");
+    if (!hKernelBase)
+    {
+        hKernelBase = LoadLibraryExW(L"kernelbase.dll", nullptr,
+            LOAD_LIBRARY_SEARCH_SYSTEM32);
+    }
+    if (hKernelBase)
+    {
+        auto pfnRegQueryValueExW = reinterpret_cast<void*>(
+            GetProcAddress(hKernelBase, "RegQueryValueExW"));
+
+        if (pfnRegQueryValueExW)
+        {
+            WindhawkUtils::SetFunctionHook(
+                pfnRegQueryValueExW,
+                reinterpret_cast<void*>(RegQueryValueExW_Hook),
+                reinterpret_cast<void**>(&RegQueryValueExW_Original)
+            );
+        }
+    }
+
     HMODULE hGdi32 = GetModuleHandleW(L"gdi32.dll");
     if (hGdi32)
     {
@@ -360,7 +555,7 @@ BOOL Wh_ModInit()
         );
     }
 
-    EnumWindows(EnumWindows_AttachDropDowns, 0);
+    EnumWindows(InitEnumDropDownWindowsProc, 0);
 
     return TRUE;
 }
@@ -369,7 +564,7 @@ void Wh_ModUninit()
 {
     Wh_Log(L"Uninit");
 
-    EnumWindows(EnumWindows_DetachDropDowns, 0);
+    EnumWindows(UninitEnumDropDownWindowsProc, 0);
 }
 
 void Wh_ModSettingsChanged()

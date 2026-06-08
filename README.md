@@ -215,16 +215,19 @@ such as "Rectify11 dark theme".
 | :----: | :---: |
 | ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
 
+### Extended features
+The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created
+by **Reabstraction**. This forked mod significantly expands the scope of the
+original fix with the following improvements:
+* Added compatibility with dialogs
+* Added compatibility with  "Translucent Windows" mod.
+* Fixed unreadable hardcoded blue and green text colours for compressed and
+  encrypted files/folders.
+
 ### Configuration
 **Translucent Windows compatibility:** Fixes unreadable dark text in the
 Explorer address bar drop-down menu when using the
 "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
-
----
-
-[Original code](https://windhawk.net/mods/fix-darkmode-listviews) by
-**Reabstraction**. This forked mod adds compatibility with dialogs and
-"Translucent Windows" mod.
 
 ---
 
@@ -292,7 +295,7 @@ Customise the "Library" tree view sidebar in VMware Workstation.
 You can mix and match the following options in the settings tab:
 * **Item Height:** Adjusts the vertical spacing of the virtual machines in the
   list (Default: 18px).
-* **Themed TreeView:** Applies the Explorer visual style.
+* **Themed TreeView:** Applies the Explorer theme.
 * **Full-Row Selection:** Expands the highlight selection box across the entire
   width of the sidebar.
 * **Tree Indentation:** Controls the horizontal spacing/indentation of VMs and

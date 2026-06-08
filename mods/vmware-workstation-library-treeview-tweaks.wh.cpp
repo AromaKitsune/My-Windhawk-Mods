@@ -42,7 +42,7 @@ You can mix and match the following options in the settings tab:
   $description: The height of the tree-view items in pixels at 100% scaling. (Default is 18).
 - themed: true
   $name: Themed TreeView
-  $description: Applies the modern Explorer visual style to the tree view.
+  $description: Applies the modern Explorer theme to the tree view.
 - fullRowSelect: true
   $name: Full-Row Selection
   $description: Makes the selection highlight span the entire width of the tree view.
@@ -434,7 +434,7 @@ HWND WINAPI CreateWindowExW_Hook(
 }
 
 // Callback to find existing tree views and apply subclass
-BOOL CALLBACK EnumChildWindows_AttachCallback(HWND hTreeViewWnd, LPARAM lParam)
+BOOL CALLBACK InitTreeViewEnumProc(HWND hTreeViewWnd, LPARAM lParam)
 {
     WCHAR szClassName[256];
     if (GetClassNameW(hTreeViewWnd, szClassName, ARRAYSIZE(szClassName)) &&
@@ -446,7 +446,7 @@ BOOL CALLBACK EnumChildWindows_AttachCallback(HWND hTreeViewWnd, LPARAM lParam)
 }
 
 // Callback for cleaning up subclasses on unload
-BOOL CALLBACK EnumChildWindows_DetachCallback(HWND hTreeViewWnd, LPARAM lParam)
+BOOL CALLBACK UninitTreeViewEnumProc(HWND hTreeViewWnd, LPARAM lParam)
 {
     WCHAR szClassName[256];
     if (GetClassNameW(hTreeViewWnd, szClassName, ARRAYSIZE(szClassName)) &&
@@ -492,25 +492,25 @@ BOOL CALLBACK EnumChildWindows_DetachCallback(HWND hTreeViewWnd, LPARAM lParam)
 }
 
 // Callback to iterate through process windows for initialization
-BOOL CALLBACK EnumWindows_AttachCallback(HWND hVMwareWnd, LPARAM lParam)
+BOOL CALLBACK InitEnumVMwareWindowsProc(HWND hVMwareWnd, LPARAM lParam)
 {
     DWORD dwProcessId;
     GetWindowThreadProcessId(hVMwareWnd, &dwProcessId);
     if (dwProcessId == GetCurrentProcessId())
     {
-        EnumChildWindows(hVMwareWnd, EnumChildWindows_AttachCallback, 0);
+        EnumChildWindows(hVMwareWnd, InitTreeViewEnumProc, 0);
     }
     return TRUE;
 }
 
 // Callback to iterate through process windows for cleanup
-BOOL CALLBACK EnumWindows_DetachCallback(HWND hVMwareWnd, LPARAM lParam)
+BOOL CALLBACK UninitEnumVMwareWindowsProc(HWND hVMwareWnd, LPARAM lParam)
 {
     DWORD dwProcessId;
     GetWindowThreadProcessId(hVMwareWnd, &dwProcessId);
     if (dwProcessId == GetCurrentProcessId())
     {
-        EnumChildWindows(hVMwareWnd, EnumChildWindows_DetachCallback, 0);
+        EnumChildWindows(hVMwareWnd, UninitTreeViewEnumProc, 0);
     }
     return TRUE;
 }
@@ -537,7 +537,7 @@ BOOL Wh_ModInit()
         &CreateWindowExW_Original
     );
 
-    EnumWindows(EnumWindows_AttachCallback, 0);
+    EnumWindows(InitEnumVMwareWindowsProc, 0);
 
     return TRUE;
 }
@@ -545,7 +545,7 @@ BOOL Wh_ModInit()
 // Mod uninitialization
 void Wh_ModUninit()
 {
-    EnumWindows(EnumWindows_DetachCallback, 0);
+    EnumWindows(UninitEnumVMwareWindowsProc, 0);
 }
 
 // Reload settings
@@ -553,5 +553,5 @@ void Wh_ModSettingsChanged()
 {
     LoadSettings();
 
-    EnumWindows(EnumWindows_AttachCallback, 0);
+    EnumWindows(InitEnumVMwareWindowsProc, 0);
 }

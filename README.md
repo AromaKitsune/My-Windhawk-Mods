@@ -208,12 +208,13 @@ icon restoration code integrated, so you don't need to use both mods together.
 ## Fix Darkmode ListViews
 [C++ source code](/mods/fix-darkmode-listviews.wh.cpp)
 
-Fixes hardcoded text colour in ListViews when using a system-wide dark theme
+Fixes hardcoded text colours in ListViews when using a system-wide dark theme
 such as "Rectify11 dark theme".
 
 | Before | After |
 | :----: | :---: |
 | ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
+| ![](/screenshots/fix-darkmode-listviews_altColors_before.png) | ![](/screenshots/fix-darkmode-listviews_altColors_after.png) |
 
 ### Extended features
 The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created

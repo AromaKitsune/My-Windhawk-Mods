@@ -12,12 +12,13 @@
 // ==WindhawkModReadme==
 /*
 # Fix Darkmode ListViews
-Fixes hardcoded text color in ListViews when using a system-wide dark theme such
+Fixes hardcoded text colors in ListViews when using a system-wide dark theme such
 as "Rectify11 dark theme".
 
 | Before | After |
 | :----: | :---: |
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_after.png) |
+| ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_altColors_before.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/fix-darkmode-listviews_altColors_after.png) |
 
 ## Extended features
 The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created

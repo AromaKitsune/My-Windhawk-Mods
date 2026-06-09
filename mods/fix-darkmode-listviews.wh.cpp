@@ -27,7 +27,9 @@ by **Reabstraction**. This forked mod significantly expands the scope of the
 original fix with the following improvements:
 * Added compatibility with dialogs.
 * Added compatibility with the
-  "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
+  "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod,
+  specifically fixing unreadable dark text in the Explorer address bar drop-down
+  menu.
 * Fixed unreadable blue and green text colors for compressed and encrypted
   files/folders.
 

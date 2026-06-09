@@ -24,15 +24,15 @@ as "Rectify11 dark theme".
 The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created
 by **Reabstraction**. This forked mod significantly expands the scope of the
 original fix with the following improvements:
-* Added compatibility with dialogs
-* Added compatibility with  "Translucent Windows" mod.
+* Added compatibility with dialogs.
+* Added compatibility with the
+  "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
 * Fixed unreadable hardcoded blue and green text colors for compressed and
   encrypted files/folders.
 
 ## Configuration
 **Translucent Windows compatibility:** Fixes unreadable dark text in the
-Explorer address bar drop-down menu when using the
-"[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
+Explorer address bar drop-down menu when using the "Translucent Windows" mod.
 */
 // ==/WindhawkModReadme==
 

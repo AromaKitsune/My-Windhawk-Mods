@@ -224,8 +224,8 @@ original fix with the following improvements:
 * Added compatibility with dialogs.
 * Added compatibility with the
   "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod.
-* Fixed unreadable hardcoded blue and green text colours for compressed and
-  encrypted files/folders.
+* Fixed unreadable blue and green text colours for compressed and encrypted
+  files/folders.
 
 ### Configuration
 **Translucent Windows compatibility:** Fixes unreadable dark text in the

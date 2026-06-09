@@ -215,6 +215,7 @@ such as "Rectify11 dark theme".
 | :----: | :---: |
 | ![](/screenshots/fix-darkmode-listviews_before.png) | ![](/screenshots/fix-darkmode-listviews_after.png) |
 | ![](/screenshots/fix-darkmode-listviews_altColors_before.png) | ![](/screenshots/fix-darkmode-listviews_altColors_after.png) |
+| ![](/screenshots/fix-darkmode-listviews_translucentDropDown_before.png) | ![](/screenshots/fix-darkmode-listviews_translucentDropDown_after.png) |
 
 ### Extended features
 The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created

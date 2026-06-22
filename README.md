@@ -8,6 +8,7 @@ Windows and various apps.
 * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
 * [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
 * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
+* [Custom Menu Height](#custom-menu-height)
 * [Disk Usage Bar in Drive Properties](#disk-usage-bar-in-drive-properties)
 * [Never Auto-Expand Explorer Tree Items](#never-auto-expand-explorer-tree-items)
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
@@ -34,7 +35,7 @@ This mod adds a confirmation dialog that spawns when you attempt to close a File
 Explorer window with multiple tabs open, preventing accidental closure of all
 tabs.
 
-![](/screenshots/confirm-closing-multiple-explorer-tabs.png)
+![](/screenshots/confirm-closing-multiple-explorer-tabs_2026-06-20.png)
 
 ### Configuration
 **Default button:** Choose whether "Close Tabs" or "Cancel" is the default
@@ -99,6 +100,47 @@ applications.
 * Custom-drawn text boxes, such as those in Qt applications, are unaffected
   because they do not utilise standard Win32 `Edit` controls. Most custom-drawn
   UI frameworks already handle their own previous-word deletion functionality.
+
+---
+
+## Custom Menu Height
+[Install this mod from the Windhawk marketplace](https://windhawk.net/mods/custom-menu-height)
+| [C++ source code](/mods/custom-menu-height.wh.cpp)
+
+Control the height of Win32 context menu items and menu bars. Make classic menus
+as spacious as modern WinUI menus.
+
+By default, non-immersive context menu items are shown with a height of 22
+pixels, and menu bars with a height of 19 pixels. This mod allows increasing
+both menu heights to any custom value.
+
+### Context menu items
+| Height: 22px (Windows default) | Height: 32px |
+| :----------------------------: | :----------: |
+| ![](/screenshots/custom-menu-height_contextMenuItems-22px.png) | ![](/screenshots/custom-menu-height_contextMenuItems-32px.png) |
+
+### Menu bar
+| Height: 19px (Windows default) | Height: 32px |
+| :----------------------------: | :----------: |
+| ![](/screenshots/custom-menu-height_menuBar-19px.png) | ![](/screenshots/custom-menu-height_menuBar-32px.png) |
+
+### Recommended mods
+Enhance the overall context menu experience with these complementary mods:
+| Mod | Author | Note |
+| :-- | :----- | :--- |
+| [Classic context menu on Windows 11](https://windhawk.net/mods/explorer-context-menu-classic) | m417z | Requires Windows 11 or later |
+| [Custom Window Corner Radius](https://windhawk.net/mods/custom-corner-radius) | m417z | Requires Windows 11 or later |
+| [Dark mode context menus](https://windhawk.net/mods/dark-menus) | Mgg Sk | Requires Windows 10 version 1809 or later |
+| [Remove Context Menu Items](https://windhawk.net/mods/remove-context-menu-items) | Armaninyow | - |
+
+### Compatibility note: Immersive menus
+To ensure the custom context menu item height functions properly within File
+Explorer and the taskbar on Windows 10 and later, this mod eradicates immersive
+menus system-wide, falling back to standard context menus.
+
+The code for this implementation is based on the
+"[Eradicate Immersive Menus](https://windhawk.net/mods/eradicate-immersive-menus)"
+mod by **aubymori**.
 
 ---
 

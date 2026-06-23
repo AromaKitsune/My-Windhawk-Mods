@@ -333,8 +333,8 @@ time.
 
 Customise the "Library" tree view sidebar in VMware Workstation.
 
-| Default | Height: 40px |
-| :-----: | :----------: |
+| Height: 18px (Default) | Height: 40px |
+| :--------------------: | :----------: |
 | ![](/screenshots/vmware-workstation-library-treeview-tweaks_default.png) | ![](/screenshots/vmware-workstation-library-treeview-tweaks_40px.png) |
 
 ### Features & Configuration

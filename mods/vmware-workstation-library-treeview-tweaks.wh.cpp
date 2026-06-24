@@ -14,8 +14,8 @@
 # VMware Workstation Library TreeView Tweaks
 Customize the "Library" tree view sidebar in VMware Workstation.
 
-| Default | Height: 40px |
-| :-----: | :----------: |
+| Height: 18px (Default) | Height: 40px |
+| :--------------------: | :----------: |
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks_default.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks_40px.png) |
 
 ## Features & Configuration
@@ -216,7 +216,7 @@ int ScaleForWindow(HWND hTreeViewWnd, int nBaseValue)
     return MulDiv(nBaseValue, uDpi, 96);
 }
 
-// Subclass procedure to enforce the styles persistently
+// Subclass procedure for TreeView controls: Enforce custom styles
 LRESULT CALLBACK TreeViewSubclassProc(HWND hTreeViewWnd, UINT uMsg,
     WPARAM wParam, LPARAM lParam, DWORD_PTR dwRefData)
 {
@@ -494,9 +494,9 @@ BOOL CALLBACK UninitTreeViewEnumProc(HWND hTreeViewWnd, LPARAM lParam)
 // Callback to iterate through process windows for initialization
 BOOL CALLBACK InitEnumVMwareWindowsProc(HWND hVMwareWnd, LPARAM lParam)
 {
-    DWORD dwProcessId;
-    GetWindowThreadProcessId(hVMwareWnd, &dwProcessId);
-    if (dwProcessId == GetCurrentProcessId())
+    DWORD dwProcessId = 0;
+    if (GetWindowThreadProcessId(hVMwareWnd, &dwProcessId) &&
+        dwProcessId == GetCurrentProcessId())
     {
         EnumChildWindows(hVMwareWnd, InitTreeViewEnumProc, 0);
     }
@@ -506,9 +506,9 @@ BOOL CALLBACK InitEnumVMwareWindowsProc(HWND hVMwareWnd, LPARAM lParam)
 // Callback to iterate through process windows for cleanup
 BOOL CALLBACK UninitEnumVMwareWindowsProc(HWND hVMwareWnd, LPARAM lParam)
 {
-    DWORD dwProcessId;
-    GetWindowThreadProcessId(hVMwareWnd, &dwProcessId);
-    if (dwProcessId == GetCurrentProcessId())
+    DWORD dwProcessId = 0;
+    if (GetWindowThreadProcessId(hVMwareWnd, &dwProcessId) &&
+        dwProcessId == GetCurrentProcessId())
     {
         EnumChildWindows(hVMwareWnd, UninitTreeViewEnumProc, 0);
     }

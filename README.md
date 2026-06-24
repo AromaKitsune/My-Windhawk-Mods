@@ -159,22 +159,18 @@ with a usage bar.
 * Displays the disk usage percentage text below the bar.
 
 ### Configuration
-This mod provides the following options:
 * **Show red bar on low space:** Switches the usage bar colour to red when disk
   usage exceeds 90%.
 * **Show decimal percentage:** Displays the disk usage percentage text with one
   decimal place (e.g., `64.1%`).
-* **Hide storage management button:** Hides the "Details" (Windows 11) or "Disk
-  Clean-up" (Windows 8.1/10) button.
-  * It is recommended to hide this button for localised systems to prevent a UI
+* **Hide storage management button:** Hides the "Details" or "Disk Clean-up"
+  button.
+  * This button is labeled as "Details" on Windows 11 and later, and as
+    "Disk Clean-up" on Windows 10 and earlier.
+  * It is recommended to hide this button for localized systems to prevent a UI
     collision with a long "Space used" string for the disk usage percentage
     text.
   * The `Alt+D` keyboard shortcut remains functional.
-
-### Supported Windows versions
-* Windows 11
-* Windows 10
-* Windows 8.1
 
 ---
 
@@ -236,11 +232,6 @@ prevent it from functioning.
 
 **Note:** The "Disk Usage Bar in Drive Properties" mod already has the AutoRun
 icon restoration code integrated, so you don't need to use both mods together.
-
-### Supported Windows versions
-* Windows 11
-* Windows 10
-* Windows 8.1
 
 ---
 

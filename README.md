@@ -21,6 +21,7 @@ Windows and various apps.
 
 ## Info
 * [How to install Mods](#how-to-install-mods)
+* [License](#license)
 
 ---
 

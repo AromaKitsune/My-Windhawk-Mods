@@ -368,3 +368,6 @@ Install mods locally only if those mods are not on the Windhawk repository.
 3. Copy the C++ code from this GitHub repo.
 4. Paste the C++ code into the text editor.
 5. Click "Compile Mod", then "Exit Editing Mode", and the mod is installed.
+
+## License
+[MIT License](/LICENSE)

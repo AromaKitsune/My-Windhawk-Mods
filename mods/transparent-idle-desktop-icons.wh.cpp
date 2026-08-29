@@ -2,7 +2,7 @@
 // @id              transparent-idle-desktop-icons
 // @name            Transparent Idle Desktop Icons
 // @description     Make desktop icons transparent when idle and restore opacity on hover
-// @version         0.1-beta11
+// @version         1.0-beta.11
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         explorer.exe

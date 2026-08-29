@@ -2,7 +2,7 @@
 // @id              fix-darkmode-listviews
 // @name            Fix Darkmode ListViews
 // @description     Fixes ListViews in dark mode
-// @version         1.0-beta40
+// @version         1.0-extended.40
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         *

@@ -2,7 +2,7 @@
 // @id              vmware-workstation-library-treeview-tweaks
 // @name            VMware Workstation Library TreeView Tweaks
 // @description     Customize the "Library" tree view sidebar in VMware Workstation
-// @version         0.1-beta39
+// @version         1.0-beta.39
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         vmware.exe

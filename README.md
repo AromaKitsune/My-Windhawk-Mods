@@ -276,7 +276,8 @@ integration.
 ### Important note: Column width
 To ensure the folder item count and folder size fit within the "Size" column
 without being truncated, you must increase its width:
-* Right-click the column header and click **More...**.
+* Launch File Explorer and navigate to any general folder (e.g., `C:\`).
+* Right-click the column header and click **More**.
 * In the "Choose Details" dialog, select the **Size** item.
 * Set the **Width of selected column (in pixels)** value to at least:
   * `144` for 100% DPI
@@ -292,9 +293,9 @@ without being truncated, you must increase its width:
   folders of this type.
 
 Repeat the steps for these folder types:
-* **General** (e.g., `C:\`)
 * **Documents**
 * **Downloads**
+* **Libraries**
 * **Pictures** (optional)
 * **Music**
 * **Videos** (optional)

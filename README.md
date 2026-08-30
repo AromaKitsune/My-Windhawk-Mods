@@ -14,6 +14,7 @@ Windows and various apps.
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
 
 ### Mods available on this GitHub repo
+* [Better file sizes in Explorer details](#better-file-sizes-in-explorer-details)
 * [Fix Darkmode ListViews](#fix-darkmode-listviews)
 * [Notepad++ Tweaks](#notepad-tweaks)
 * [Transparent Idle Desktop Icons](#transparent-idle-desktop-icons)
@@ -240,8 +241,75 @@ icon restoration code integrated, so you don't need to use both mods together.
 <br>
 <h2 align="center">List of Mods available on this GitHub repo</h2>
 
+## Better file sizes in Explorer details
+[C++ source code](/mods/explorer-details-better-file-sizes.wh.cpp)
+
+Fork of the
+[original mod](https://windhawk.net/mods/explorer-details-better-file-sizes) by
+**m417z**
+
+### Original features
+This mod offers the following optional improvements to file sizes in File
+Explorer's details view:
+* **Show folder sizes** - via "Everything" integration or calculated manually
+* **Mix files and folders when sorting by size**
+* **Use MB/GB for large files** - instead of always KB
+* **Use IEC terms** - KB → KiB, MB → MiB, GB → GiB
+
+[Full mod details](https://windhawk.net/mods/explorer-details-better-file-sizes)
+
+### Extended features
+This forked mod expands the scope of the original mod with the following
+improvements:
+* **Folder item counts:** Displays the folder item count alongside the folder
+  size.
+* **Folder size format:** Customizes the display of the folder item count and
+  folder size:
+  * `%count%` - the folder item count
+  * `%size%` - the folder size
+
+**Note:** The "Show folder sizes" setting must be enabled via "Everything"
+integration.
+
+![](/screenshots/explorer-details-better-file-sizes.png)
+
+### Important note: Column width
+To ensure the folder item count and folder size fit within the "Size" column
+without being truncated, you must increase its width:
+* Right-click the column header and click **More...**.
+* In the "Choose Details" dialog, select the **Size** item.
+* Set the **Width of selected column (in pixels)** value to at least:
+  * `144` for 100% DPI
+  * `180` for 125% DPI
+  * `216` for 150% DPI
+  * `288` for 200% DPI
+* Click **OK**.
+* Press `Win+R` to open the "Run" dialog.
+* Type `control folders` and press `Enter`.
+* In the "Folder Options" dialog, switch to the **View** tab.
+* Click **Apply to Folders**. Doing so saves the specified column width for all
+  folders of this type.
+
+Repeat the steps for these folder types:
+* **General** (e.g., `C:\`)
+* **Documents**
+* **Downloads**
+* **Pictures** (optional)
+* **Music**
+* **Videos** (optional)
+
+After saving the specified column width, the changes may not take effect on
+previously accessed directories due to folder view caching (ShellBags). It is
+recommended to use
+[the script to clear the folder view cache](/misc/clear-folder-view-cache.cmd).
+
+---
+
 ## Fix Darkmode ListViews
 [C++ source code](/mods/fix-darkmode-listviews.wh.cpp)
+
+Fork of the [original mod](https://windhawk.net/mods/fix-darkmode-listviews) by
+**Reabstraction**
 
 Fixes hardcoded text colours in ListViews when using a system-wide dark theme
 such as "Rectify11 dark theme".
@@ -253,9 +321,8 @@ such as "Rectify11 dark theme".
 | ![](/screenshots/fix-darkmode-listviews_translucentDropDown_before.png) | ![](/screenshots/fix-darkmode-listviews_translucentDropDown_after.png) |
 
 ### Extended features
-The [original mod](https://windhawk.net/mods/fix-darkmode-listviews) was created
-by **Reabstraction**. This forked mod significantly expands the scope of the
-original fix with the following improvements:
+This forked mod significantly expands the scope of the original fix with the
+following improvements:
 * Added compatibility with dialogs.
 * Added compatibility with the
   "[Translucent Windows](https://windhawk.net/mods/translucent-windows)" mod,
@@ -365,6 +432,8 @@ Recommended.
 ### Manual installation
 Install mods locally only if those mods are not on the Windhawk repository.
 1. Launch Windhawk.
+   * If you're installing a forked mod, turn off the original mod  to avoid
+   conflicts.
 2. Click "Create a New Mod" and clear everything in the text editor.
 3. Copy the C++ code from this GitHub repo.
 4. Paste the C++ code into the text editor.
@@ -372,3 +441,12 @@ Install mods locally only if those mods are not on the Windhawk repository.
 
 ## License
 [MIT License](/LICENSE)
+
+Unless otherwise noted, the mods in this repository are licensed under the MIT
+Licence.
+
+### Exceptions
+The following mods incorporate code from or are based on works by other authors
+that are licensed under the GNU General Public License v3.0:
+* **Better file sizes in Explorer details:** Fork of the original mod by
+  **m417z**

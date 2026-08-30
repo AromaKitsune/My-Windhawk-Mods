@@ -449,6 +449,6 @@ Licence.
 
 ### Exceptions
 The following mods include code from or are based on works by other authors
-that are licensed under the GNU General Public License v3.0:
+that are licensed under the [GNU General Public License v3.0](/LICENSE-GPL):
 * **Better file sizes in Explorer details:** Fork of the original mod by
   **m417z**

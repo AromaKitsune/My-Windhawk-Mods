@@ -132,8 +132,9 @@ without being truncated, you must increase its width:
   * `216` for 150% DPI
   * `288` for 200% DPI
 * Click **OK**.
-* Press `Win+R` to open the "Run" dialog.
-* Type `control folders` and press `Enter`.
+* Open **"Folder Options"**.
+  * Windows 11: **•••** → **Options**
+  * Windows 10: **File** → **Options**
 * In the "Folder Options" dialog, switch to the **View** tab.
 * Click **Apply to Folders**. Doing so saves the specified column width for all
   folders of this type.

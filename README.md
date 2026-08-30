@@ -448,7 +448,7 @@ Unless otherwise noted, the mods in this repository are licensed under the MIT
 Licence.
 
 ### Exceptions
-The following mods contain code from or are based on works by other authors
+The following mods include code from or are based on works by other authors
 that are licensed under the GNU General Public License v3.0:
 * **Better file sizes in Explorer details:** Fork of the original mod by
   **m417z**

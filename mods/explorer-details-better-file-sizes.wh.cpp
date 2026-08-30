@@ -151,7 +151,7 @@ Repeat the steps for these folder types:
 After saving the specified column width, the changes may not take effect on
 previously accessed directories due to folder view caching (ShellBags). It is
 recommended to use
-[the script to clear the folder view cache](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/misc/clear-folder-view-cache.cmd).
+[the script to clear the folder view cache](https://github.com/AromaKitsune/My-Windhawk-Mods/blob/main/misc/clear-folder-view-cache.cmd).
 */
 // ==/WindhawkModReadme==
 

@@ -2,7 +2,7 @@
 // @id              notepad-plus-plus-tweaks
 // @name            Notepad++ Tweaks
 // @description     Applies tweaks to Notepad++ to improve usability
-// @version         1.0
+// @version         1.0-beta.10
 // @author          Kitsune
 // @github          https://github.com/AromaKitsune
 // @include         notepad++.exe

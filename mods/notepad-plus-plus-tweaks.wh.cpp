@@ -14,7 +14,7 @@
 # Notepad++ Tweaks
 This mod applies tweaks to Notepad++ to improve usability.
 
-## Remove Border from Scintilla
+## Remove border from Scintilla
 Removes the border from the main text editing area (Scintilla control).
 
 **Why?:** When the border is visible, a 1px gap exists between the vertical
@@ -24,16 +24,16 @@ scroll bar. Removing the border eliminates this gap, making the scroll bar
 easier to grab.
 
 ## Remove InfoTip from Document List
-Removes the tooltip (InfoTip) that appears when hovering over files in the
+Removes the InfoTip (ToolTip) that appears when hovering over files in the
 "Document List" panel.
 
 **Why?:** The default InfoTip can be intrusive; if you hover over file item 1,
-the tooltip often appears over file item 2, obscuring it.
+the InfoTip often appears over file item 2, obscuring it.
 
 Additionally, on Windows 11, this prevents the mouse hover effect from
 triggering on the obscured item, making the list feel unresponsive to cursor
 movement. Curiously, this issue also affects several items below it (e.g., items
-3, 4, 5), even though the tooltip is only obscuring item 2. This is a
+3, 4, 5), even though the InfoTip is only obscuring item 2. This is a
 system-wide bug that affects `SysListView32` controls (not just in Notepad++)
 and does not occur in Windows 10 or earlier. Removing the InfoTip solves this
 obstruction.

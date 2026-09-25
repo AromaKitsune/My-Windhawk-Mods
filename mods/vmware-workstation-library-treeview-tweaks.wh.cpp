@@ -18,19 +18,19 @@ Customize the "Library" tree view sidebar in VMware Workstation.
 | :--------------------: | :----------: |
 | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks_default.png) | ![](https://raw.githubusercontent.com/AromaKitsune/My-Windhawk-Mods/main/screenshots/vmware-workstation-library-treeview-tweaks_40px.png) |
 
-## Features & Configuration
+## Features & configuration
 You can mix and match the following options in the settings tab:
-* **Item Height:** Adjusts the vertical spacing of the virtual machines in the
+* **Item height:** Adjusts the vertical spacing of the virtual machines in the
   list (Default: 18px).
-* **Themed TreeView:** Applies the Explorer visual style.
-* **Full-Row Selection:** Expands the highlight selection box across the entire
+* **Themed TreeView:** Applies the Explorer theme.
+* **Full-row selection:** Expands the highlight selection box across the entire
   width of the sidebar.
-* **Tree Indentation:** Controls the horizontal spacing/indentation of VMs and
+* **Tree indentation:** Controls the horizontal spacing/indentation of VMs and
   folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern Flat Border:** Replaces the 3D sunken border with a flat 1px line.
-* **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a
+* **Modern flat border:** Replaces the 3D sunken border with a flat 1px line.
+* **Remove expando buttons:** Hides the expand/collapse arrows completely for a
   minimalist look. You can still expand folders by double-clicking them.
-* **Disable ToolTips:** Hides the tooltips that appear when hovering over
+* **Disable ToolTips:** Hides the ToolTips that appear when hovering over
   truncated virtual machine names.
 */
 // ==/WindhawkModReadme==

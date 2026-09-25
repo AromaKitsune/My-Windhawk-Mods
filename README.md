@@ -2,7 +2,7 @@
 My collection of Windhawk mods for tweaking the behaviours and UI of Microsoft
 Windows and various apps.
 
-## List of Mods
+## List of mods
 
 ### Mods available on the Windhawk repository
 * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
@@ -21,13 +21,13 @@ Windows and various apps.
 * [VMware Workstation Library TreeView Tweaks](#vmware-workstation-library-treeview-tweaks)
 
 ## Info
-* [How to install Mods](#how-to-install-mods)
+* [How to install mods](#how-to-install-mods)
 * [License](#license)
 
 ---
 
 <br>
-<h2 align="center">List of Mods available on the Windhawk repository</h2>
+<h2 align="center">List of mods available on the Windhawk repository</h2>
 
 ## Confirm Closing Multiple Tabs in File Explorer
 [Install this mod from the Windhawk repository](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
@@ -239,7 +239,7 @@ icon restoration code integrated, so you don't need to use both mods together.
 ---
 
 <br>
-<h2 align="center">List of Mods available on this GitHub repo</h2>
+<h2 align="center">List of mods available on this GitHub repo</h2>
 
 ## Better file sizes in Explorer details
 [C++ source code](/mods/explorer-details-better-file-sizes.wh.cpp)
@@ -344,7 +344,7 @@ Explorer address bar drop-down menu when using the "Translucent Windows" mod.
 
 This mod applies tweaks to Notepad++ to improve usability.
 
-### Remove Border from Scintilla
+### Remove border from Scintilla
 Removes the border from the main text editing area (Scintilla control).
 
 **Why?**: When the border is visible, a 1px gap exists between the vertical
@@ -354,16 +354,16 @@ scroll bar. Removing the border eliminates this gap, making the scroll bar
 easier to grab.
 
 ### Remove InfoTip from Document List
-Removes the tooltip (InfoTip) that appears when hovering over files in the
+Removes the InfoTip (ToolTip) that appears when hovering over files in the
 "Document List" panel.
 
 **Why?**: The default InfoTip can be intrusive; if you hover over file item 1,
-the tooltip often appears over file item 2, obscuring it.
+the InfoTip often appears over file item 2, obscuring it.
 
 Additionally, on Windows 11, this prevents the mouse hover effect from
 triggering on the obscured item, making the list feel unresponsive to cursor
 movement. Curiously, this issue also affects several items below it (e.g., items
-3, 4, 5), even though the tooltip is only obscuring item 2. This is a
+3, 4, 5), even though the InfoTip is only obscuring item 2. This is a
 system-wide bug that affects `SysListView32` controls (not just in Notepad++)
 and does not occur in Windows 10 or earlier. Removing the InfoTip solves this
 obstruction.
@@ -399,19 +399,19 @@ Customise the "Library" tree view sidebar in VMware Workstation.
 | :--------------------: | :----------: |
 | ![](/screenshots/vmware-workstation-library-treeview-tweaks_default.png) | ![](/screenshots/vmware-workstation-library-treeview-tweaks_40px.png) |
 
-### Features & Configuration
+### Features & configuration
 You can mix and match the following options in the settings tab:
-* **Item Height:** Adjusts the vertical spacing of the virtual machines in the
+* **Item height:** Adjusts the vertical spacing of the virtual machines in the
   list (Default: 18px).
 * **Themed TreeView:** Applies the Explorer theme.
-* **Full-Row Selection:** Expands the highlight selection box across the entire
+* **Full-row selection:** Expands the highlight selection box across the entire
   width of the sidebar.
-* **Tree Indentation:** Controls the horizontal spacing/indentation of VMs and
+* **Tree indentation:** Controls the horizontal spacing/indentation of VMs and
   folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern Flat Border:** Replaces the 3D sunken border with a flat 1px line.
-* **Remove Expando Buttons:** Hides the expand/collapse arrows completely for a
+* **Modern flat border:** Replaces the 3D sunken border with a flat 1px line.
+* **Remove expando buttons:** Hides the expand/collapse arrows completely for a
   minimalist look. You can still expand folders by double-clicking them.
-* **Disable ToolTips:** Hides the tooltips that appear when hovering over
+* **Disable ToolTips:** Hides the ToolTips that appear when hovering over
   truncated virtual machine names.
 
 ---
@@ -419,7 +419,7 @@ You can mix and match the following options in the settings tab:
 <br>
 <h2 align="center">Info</h2>
 
-## How to install Mods
+## How to install mods
 First, install [Windhawk](https://windhawk.net/) and pick one method below to
 install mods:
 
@@ -436,10 +436,10 @@ Install mods locally only if those mods are not on the Windhawk repository.
 1. Launch Windhawk.
    * If you're installing a forked mod, turn off the original mod  to avoid
    conflicts.
-2. Click "Create a New Mod" and clear everything in the text editor.
+2. Click "Create a new mod" and clear everything in the text editor.
 3. Copy the C++ code from this GitHub repo.
 4. Paste the C++ code into the text editor.
-5. Click "Compile Mod", then "Exit Editing Mode", and the mod is installed.
+5. Click "Compile mod", then exit the editor, and the mod is installed.
 
 ## License
 [MIT License](/LICENSE)

@@ -27,7 +27,8 @@ You can mix and match the following options in the settings tab:
   width of the sidebar.
 * **Tree indentation:** Controls the horizontal spacing/indentation of VMs and
   folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern flat border:** Replaces the 3D sunken border with a flat 1px line.
+* **Modern flat border:** Replaces the 3D sunken border (`WS_EX_CLIENTEDGE`)
+  with a flat 1px border (`WS_BORDER`).
 * **Remove expando buttons:** Hides the expand/collapse arrows completely for a
   minimalist look. You can still expand folders by double-clicking them.
 * **Disable ToolTips:** Hides the ToolTips that appear when hovering over
@@ -38,26 +39,35 @@ You can mix and match the following options in the settings tab:
 // ==WindhawkModSettings==
 /*
 - itemHeight: 18
-  $name: Item Height (Base)
-  $description: The height of the tree-view items in pixels at 100% scaling. (Default is 18).
+  $name: Item height
+  $description: >-
+    The height of the tree-view items in pixels at 100% scaling. (Default is
+    18px).
 - themed: true
   $name: Themed TreeView
   $description: Applies the modern Explorer theme to the tree view.
 - fullRowSelect: true
-  $name: Full-Row Selection
-  $description: Makes the selection highlight span the entire width of the tree view.
+  $name: Full-row selection
+  $description: >-
+    Makes the selection highlight span the entire width of the tree view.
 - treeIndent: 18
-  $name: Tree Indentation (Base)
-  $description: The horizontal spacing (in pixels) for child items at 100% scaling. Lower this to push VMs to the left. (Default is 18).
+  $name: Tree indentation
+  $description: >-
+    The horizontal spacing (in pixels) for child items at 100% scaling. Lower
+    this to push VMs to the left. (Default is 18px).
 - replaceClientEdge: true
-  $name: Modern Flat Border
-  $description: Replaces the old 3D sunken border (WS_EX_CLIENTEDGE) with a modern flat 1px border (WS_BORDER).
+  $name: Modern flat border
+  $description: Replaces the 3D sunken border with a modern flat 1px border.
 - removeExpandos: false
-  $name: Remove Expando Buttons
-  $description: Hides the expand/collapse arrows next to parent items. (You can still double-click parents to expand them).
+  $name: Remove expando buttons
+  $description: >-
+    Hides the expand/collapse arrows next to parent items. (You can still
+    double-click parents to expand them).
 - disableToolTips: false
   $name: Disable ToolTips
-  $description: Prevents the tree view from showing popup tooltips when hovering over truncated items.
+  $description: >-
+    Prevents the tree view from showing popup tooltips when hovering over
+    truncated items.
 */
 // ==/WindhawkModSettings==
 

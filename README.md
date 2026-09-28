@@ -33,15 +33,15 @@ Windows and various apps.
 [Install this mod from the Windhawk repository](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
 | [C++ source code](/mods/confirm-closing-multiple-explorer-tabs.wh.cpp)
 
-This mod shows a confirmation dialog when you attempt to close a File Explorer
+This mod shows a confirmation dialog when attempting to close a File Explorer
 window with multiple tabs open, preventing accidental closure of all tabs.
 
-![](/screenshots/confirm-closing-multiple-explorer-tabs_2026-06-20.png)
+![](/screenshots/confirm-closing-multiple-explorer-tabs_2026-09-27.png)
 
 ### Configuration
 * **Tab count threshold:** The minimum number of open tabs required to show
   the confirmation dialog.
-* **Default button:** Choose whether "Close Tabs" or "Cancel" is the default
+* **Default button:** Choose whether "Close tabs" or "Cancel" is the default
   button in the confirmation dialog.
 
 ---
@@ -408,7 +408,8 @@ You can mix and match the following options in the settings tab:
   width of the sidebar.
 * **Tree indentation:** Controls the horizontal spacing/indentation of VMs and
   folders (Default: 18px). Lower this to push VMs closer to the left edge.
-* **Modern flat border:** Replaces the 3D sunken border with a flat 1px line.
+* **Modern flat border:** Replaces the 3D sunken border (`WS_EX_CLIENTEDGE`)
+  with a flat 1px border (`WS_BORDER`).
 * **Remove expando buttons:** Hides the expand/collapse arrows completely for a
   minimalist look. You can still expand folders by double-clicking them.
 * **Disable ToolTips:** Hides the ToolTips that appear when hovering over

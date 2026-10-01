@@ -170,7 +170,7 @@ with a usage bar.
   button.
   * This button is labeled as "Details" on Windows 11 and later, and as
     "Disk Clean-up" on Windows 10 and earlier.
-  * It is recommended to hide this button for localized systems to prevent a UI
+  * It is recommended to hide this button for localised systems to prevent a UI
     collision with a long "Space used" string for the disk usage percentage
     text.
   * The `Alt+D` keyboard shortcut remains functional.
@@ -425,7 +425,7 @@ First, install [Windhawk](https://windhawk.net/) and pick one method below to
 install mods:
 
 ### From the Windhawk repository
-Recommended.
+Recommended if those mods are available on the Windhawk repository.
 1. Launch Windhawk.
 2. Click the "Explore" button.
 3. Search one of my mods by typing a mod name shown on this GitHub repo.

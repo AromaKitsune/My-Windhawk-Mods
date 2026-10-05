@@ -4,7 +4,7 @@ Windows and various apps.
 
 ## List of mods
 
-### Mods available on the Windhawk repository
+### Mods available on the Windhawk mods catalog
 * [Confirm Closing Multiple Tabs in File Explorer](#confirm-closing-multiple-tabs-in-file-explorer)
 * [CrystalDiskInfo Smart Auto-Refresh](#crystaldiskinfo-smart-auto-refresh)
 * [Ctrl+Backspace Fix for Win32 Text Boxes](#ctrlbackspace-fix-for-win32-text-boxes)
@@ -14,8 +14,8 @@ Windows and various apps.
 * [Restore AutoRun Icon in Drive Properties](#restore-autorun-icon-in-drive-properties)
 
 ### Mods available on this GitHub repo
-* [Better file sizes in Explorer details](#better-file-sizes-in-explorer-details)
-* [Fix Darkmode ListViews](#fix-darkmode-listviews)
+* [Better file sizes in Explorer details](#better-file-sizes-in-explorer-details) (forked mod)
+* [Fix Darkmode ListViews](#fix-darkmode-listviews) (forked mod)
 * [Notepad++ Tweaks](#notepad-tweaks)
 * [Transparent Idle Desktop Icons](#transparent-idle-desktop-icons)
 * [VMware Workstation Library TreeView Tweaks](#vmware-workstation-library-treeview-tweaks)
@@ -27,10 +27,10 @@ Windows and various apps.
 ---
 
 <br>
-<h2 align="center">List of mods available on the Windhawk repository</h2>
+<h2 align="center">List of mods available on the Windhawk mods catalog</h2>
 
 ## Confirm Closing Multiple Tabs in File Explorer
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/confirm-closing-multiple-explorer-tabs)
 | [C++ source code](/mods/confirm-closing-multiple-explorer-tabs.wh.cpp)
 
 This mod shows a confirmation dialog when attempting to close a File Explorer
@@ -47,7 +47,7 @@ window with multiple tabs open, preventing accidental closure of all tabs.
 ---
 
 ## CrystalDiskInfo Smart Auto-Refresh
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/crystaldiskinfo-smart-auto-refresh)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/crystaldiskinfo-smart-auto-refresh)
 | [C++ source code](/mods/crystaldiskinfo-smart-auto-refresh.wh.cpp)
 
 CrystalDiskInfo includes an optional Auto-Refresh feature that updates disk
@@ -73,7 +73,7 @@ of the following options to activate it:
 ---
 
 ## Ctrl+Backspace Fix for Win32 Text Boxes
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/ctrl-backspace-fix-for-win32-text-boxes)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/ctrl-backspace-fix-for-win32-text-boxes)
 | [C++ source code](/mods/ctrl-backspace-fix-for-win32-text-boxes.wh.cpp)
 
 Win32 text boxes often lack previous-word deletion functionality, resulting in
@@ -107,7 +107,7 @@ applications.
 ---
 
 ## Custom Menu Height
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/custom-menu-height)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/custom-menu-height)
 | [C++ source code](/mods/custom-menu-height.wh.cpp)
 
 Control the height of Win32 context menu items and menu bars. Make classic menus
@@ -148,7 +148,7 @@ mod by **aubymori**.
 ---
 
 ## Disk Usage Bar in Drive Properties
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/disk-usage-bar-in-drive-properties)
 | [C++ source code](/mods/disk-usage-bar-in-drive-properties.wh.cpp)
 
 This mod replaces the disk usage pie/donut chart in the drive properties dialog
@@ -183,7 +183,7 @@ Based on the "[Disk Pie Chart](https://windhawk.net/mods/disk-pie-chart)" mod by
 ---
 
 ## Never Auto-Expand Explorer Tree Items
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/never-auto-expand-explorer-tree-items)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/never-auto-expand-explorer-tree-items)
 | [C++ source code](/mods/never-auto-expand-explorer-tree-items.wh.cpp)
 
 File Explorer automatically expands navigation pane items (such as "This PC")
@@ -211,7 +211,7 @@ pane tidy.
 ---
 
 ## Restore AutoRun Icon in Drive Properties
-[Install this mod from the Windhawk repository](https://windhawk.net/mods/restore-autorun-icon-in-drive-properties)
+[Install this mod from the Windhawk mods catalog](https://windhawk.net/mods/restore-autorun-icon-in-drive-properties)
 | [C++ source code](/mods/restore-autorun-icon-in-drive-properties.wh.cpp)
 
 Since Windows 2000, the drive properties dialog never displays the AutoRun icon
@@ -424,8 +424,8 @@ You can mix and match the following options in the settings tab:
 First, install [Windhawk](https://windhawk.net/) and pick one method below to
 install mods:
 
-### From the Windhawk repository
-Recommended if those mods are available on the Windhawk repository.
+### From the Windhawk mods catalog
+Recommended if those mods are available on the Windhawk mods catalog.
 1. Launch Windhawk.
 2. Click the "Explore" button.
 3. Search one of my mods by typing a mod name shown on this GitHub repo.
@@ -433,7 +433,7 @@ Recommended if those mods are available on the Windhawk repository.
 5. Click "Install", and the mod is installed.
 
 ### Manual installation
-Install mods locally only if those mods are not on the Windhawk repository.
+Install mods locally only if those mods are not on the Windhawk mods catalog.
 1. Launch Windhawk.
    * If you're installing a forked mod, turn off the original mod  to avoid
    conflicts.
@@ -446,7 +446,7 @@ Install mods locally only if those mods are not on the Windhawk repository.
 [MIT License](/LICENSE)
 
 Unless otherwise noted, the mods in this repository are licensed under the MIT
-Licence.
+License.
 
 ### Exceptions
 The following mods include code from or are based on works by other authors

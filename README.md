@@ -249,11 +249,15 @@ Fork of the
 **m417z**
 
 ### Original features
-This mod offers the following optional improvements to file sizes in File
-Explorer's details view:
+Original features are kept - nothing is removed or replaced.
+
+This mod offers the following optional improvements
+to file sizes in File Explorer's details view:
 * **Show folder sizes** - via "Everything" integration or calculated manually
 * **Mix files and folders when sorting by size**
-* **Use MB/GB for large files** - instead of always KB
+* **File size units** - Starting with the KB5101684 update, Windows 11 displays
+  MB/GB for large files by default. Display MB/GB for large files before the
+  KB5101684 update, or always display KB after the KB5101684 update
 * **Use IEC terms** - KB → KiB, MB → MiB, GB → GiB
 
 [Full mod details](https://windhawk.net/mods/explorer-details-better-file-sizes)

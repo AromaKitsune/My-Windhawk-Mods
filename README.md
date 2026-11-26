@@ -83,9 +83,6 @@ deleting the previous word.
 This mod resolves this behaviour by adding previous-word deletion functionality
 to those `Edit` controls.
 
-It also supports wrapped `Edit` controls used in .NET WinForms and Delphi VCL
-applications.
-
 | Before |
 | :----- |
 | ![](/screenshots/ctrl-backspace-fix-for-win32-text-boxes_before.gif) |
@@ -94,15 +91,31 @@ applications.
 | :---- |
 | ![](/screenshots/ctrl-backspace-fix-for-win32-text-boxes_after.gif) |
 
-### Notes
+### Features & behaviour
+* Supports wrapped `Edit` controls used in .NET WinForms, Delphi VCL, and
+  ATL/WTL apps.
+* Handles Unicode whitespace, punctuation, and symbols for word-wise deletion.
+* Groups consecutive Japanese kana (Hiragana & Katakana) by script for word-wise
+  deletion.
+* Groups consecutive Korean Hangul (syllables & jamo) as words for word-wise
+  deletion.
+* Steps back one character at a time through Chinese, Japanese, and Korean
+  ideographs.
+* Deletes masked text before the caret as a single block in password fields to
+  avoid leaking word boundaries.
+
+### Notes & limitations
 * In hotkey text boxes, pressing `Ctrl+Backspace` deletes the text instead of
   assigning the hotkey.
 * In masked text boxes, pressing `Ctrl+Backspace` deletes the placeholder
   characters, breaking the input mask and preventing further input into those
   missing slots.
-* Custom-drawn text boxes, such as those in Qt applications, are unaffected
-  because they do not utilise standard Win32 `Edit` controls. Most custom-drawn
-  UI frameworks already handle their own previous-word deletion functionality.
+* In legacy ANSI apps on CJK system locales, pressing `Ctrl+Backspace` on
+  multi-byte text deletes the wrong range because this mod calculates word
+  boundaries using Unicode offsets.
+* Custom-drawn text boxes, such as those in Qt apps, are unaffected because they
+  do not utilise standard Win32 `Edit` controls. Most custom-drawn UI frameworks
+  already handle their own previous-word deletion functionality.
 
 ---
 
